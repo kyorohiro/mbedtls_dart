@@ -3,6 +3,7 @@ Coder Server 's develop environment  for mbed TLS
 # support now
 
 - allocate buffer
+- md5 (todo test)
 
 
 # preperation
