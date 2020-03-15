@@ -1,5 +1,8 @@
 Coder Server 's develop environment  for mbed TLS 
 
+# support now
+
+- allocate buffer
 
 # preperation
 
@@ -32,8 +35,11 @@ on code-server's terminal
 
 ```
 $ bash
-$ gcc main_hash.c -lmbedtls -lmbedcrypto -lmbedx509
-$ ./a.out
+$ cd libc
+$ sh build.sh
+$ cd ..
+$ dart test/buffer_test.dart
+
 ..
 ..
 ```
