@@ -2,7 +2,7 @@ import 'dart:ffi' as ffi;
 
 import 'dart:typed_data';
 
-ffi.DynamicLibrary dylib = ffi.DynamicLibrary.open('/app/libc/md5.so');
+ffi.DynamicLibrary dylib = ffi.DynamicLibrary.open('/app/libc/libmd5.so');
 typedef KyBuffer_new_func = ffi.Pointer<ffi.Uint8> Function(ffi.Uint64);
 typedef KyBuffer_new = ffi.Pointer<ffi.Uint8> Function(int);
 
@@ -24,7 +24,7 @@ class Buffer {
   Uint8List _buffer;
   int _len;
 
-  Buffer.newBuffer(int len) {
+  Buffer(int len) {
     _len = len;
     _rawBuffer = newRawBuffer(len);
     _buffer = _rawBuffer.asTypedList(len);
