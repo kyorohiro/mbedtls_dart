@@ -21,10 +21,18 @@ final KyBuffer_free freeRawBuffer = dylib
 
 class Buffer {
   ffi.Pointer<ffi.Uint8> _rawBuffer;
+  Uint8List _buffer;
+  int _len;
 
   Buffer.newBuffer(int len) {
+    _len = len;
     _rawBuffer = newRawBuffer(len);
+    _buffer = _rawBuffer.asTypedList(len);
   }
+
+  Uint8List get buffer => _buffer;
+  ffi.Pointer<ffi.Uint8> get rawBuffer => _rawBuffer;
+  int get len => _len;
 
   void dispose(){
     if(_rawBuffer != null) {
