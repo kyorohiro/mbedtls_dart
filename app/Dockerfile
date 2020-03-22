@@ -14,8 +14,24 @@ RUN apt-get install musl-dev -y
 RUN apt-get install build-essential -y
 RUN apt-get install cmake -y 
 RUN apt-get install python3 -y
+RUN apt-get install python3-pip -y
+RUN ln -s `which pip3` /usr/bin/pip 
+RUN ln -s `which python3` /usr/bin/python 
+# wasm
+WORKDIR /works/wasm
+RUN apt-get install -y git
+RUN git clone https://github.com/emscripten-core/emsdk.git
+
+WORKDIR /works/wasm/emsdk
+RUN ./emsdk install latest
+RUN ./emsdk activate latest
+#RUN source /works/wasm/emsdk/emsdk_env.sh --build=Release
+ENV PATH=${PATH}:/works/wasm/emsdk:/works/wasm/emsdk/node/12.9.1_64bit/bin:/works/wasm/emsdk/upstream/emscripten
+RUN apt install -y nodejs npm
+
 
 # install embedtls
+WORKDIR /works/
 COPY ./build_resource/mbedtls-2.16.5-apache.tgz /works/mbedtls-2.16.5-apache.tgz
 RUN tar zxf mbedtls-2.16.5-apache.tgz
 WORKDIR /works/mbedtls-2.16.5/build
@@ -23,6 +39,9 @@ WORKDIR /works/mbedtls-2.16.5/build
 RUN cmake -DUSE_SHARED_MBEDTLS_LIBRARY=On -DUSE_STATIC_MBEDTLS_LIBRARY=On ..
 RUN make
 RUN make install
+
+WORKDIR /works/mbedtls-2.16.5
+RUN emmake make
 
 # install Dart
 RUN apt-get update
