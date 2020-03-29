@@ -2,7 +2,7 @@ import 'dart:ffi' as ffi;
 
 import 'dart:typed_data';
 
-import 'package:info.kyorohiro.mbedtls/buffer.dart';
+import 'package:info.kyorohiro.mbedtls/buffer_io.dart';
 
 ffi.DynamicLibrary dylib = ffi.DynamicLibrary.open('/app/libc/libmd5.so');
 typedef KyMd5_new_func = ffi.Pointer<ffi.Uint8> Function();
