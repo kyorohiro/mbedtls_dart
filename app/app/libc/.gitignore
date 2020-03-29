@@ -1,3 +1,4 @@
 *.js
 *.o
 *.wasm
+!kycrypty_util.js
