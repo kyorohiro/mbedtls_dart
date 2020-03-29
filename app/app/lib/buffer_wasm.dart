@@ -10,23 +10,25 @@ import 'buffer.dart';
 //js.JsFunction new_buffer =  Module.callMethod('cwrap',['KyBuffer_new','number',["number"]]);
 //js.JsFunction get_buffer = js.context['KyBuffer_get_buffer'];// from util.js
 //js.JsFunction free_buffer =  Module.callMethod('cwrap',['KyBuffer_free','number',["number"]]);
-js.JsFunction _alloc = js.context['KyBuffer_alloc'];
-js.JsFunction _get_buffer = js.context['KyBuffer_get_buffer'];
-js.JsFunction _free = js.context['KyBuffer_free'];
+class RawBuffer {
+  final js.JsFunction _alloc = js.context['KyBuffer_alloc'];
+  final js.JsFunction _get_buffer = js.context['KyBuffer_get_buffer'];
+  final js.JsFunction _free = js.context['KyBuffer_free'];
 
-int alloc(int len) {
-  return _alloc.apply([len]);
+  int alloc(int len) {
+    return _alloc.apply([len]);
+  }
+
+  Uint8List get_buffer(int pointer, int len) {
+    return _get_buffer.apply([pointer,len]);
+  }
+
+  void free(int pointer){
+    _free.apply([pointer]);
+  }
 }
 
-Uint8List get_buffer(int pointer, int len) {
-  return _get_buffer.apply([pointer,len]);
-}
-
-void free(int pointer){
-  _free.apply([pointer]);
-}
-
-
+RawBuffer raw = new RawBuffer();
 class BufferWasm extends Buffer {
   int _len;
   int _pointer;
@@ -34,8 +36,8 @@ class BufferWasm extends Buffer {
 
   BufferWasm(int len):super(len)  {
     _len = len;
-    _pointer = alloc(len);
-    _buffer = get_buffer(_pointer, len);
+    _pointer = raw.alloc(len);
+    _buffer = raw.get_buffer(_pointer, len);
   }
 
   @override
@@ -46,6 +48,6 @@ class BufferWasm extends Buffer {
 
   @override
   void dispose() {
-    free(_pointer);
+    raw.free(_pointer);
   }
 }
