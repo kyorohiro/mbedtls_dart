@@ -1,6 +1,6 @@
+library kycrypt;
 
 import 'dart:typed_data';
-
 
 abstract class BufferBuilder {
   Buffer create(int len);
