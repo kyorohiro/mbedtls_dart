@@ -11,7 +11,6 @@ typedef KyBuffer_free_func = ffi.Void Function(ffi.Pointer<ffi.Uint8> buffer);
 typedef KyBuffer_free = void Function(ffi.Pointer<ffi.Uint8> buffer);
 
 class RawBuffer {
-  //final ffi.DynamicLibrary dylib = ffi.DynamicLibrary.open('/app/libc/libmd5.so');
   KyBuffer_alloc _alloc;
   KyBuffer_free _free ;
   
@@ -47,17 +46,17 @@ class BufferBuilder {
     _raw = RawBuffer(dylib);
   }
   Buffer create(int len) {
-    return KyBufferIo(_raw, len);
+    return BufferIo(_raw, len);
   }
 }
 
-class KyBufferIo extends Buffer {
+class BufferIo extends Buffer {
   ffi.Pointer<ffi.Uint8> _rawBuffer;
   Uint8List _buffer;
   int _len;
   final RawBuffer _raw;
 
-  KyBufferIo(this._raw, int len):super(len) {
+  BufferIo(this._raw, int len):super(len) {
     _len = len;
     _rawBuffer = _raw._alloc(len);
     _buffer = _rawBuffer.asTypedList(len);

@@ -3,8 +3,6 @@ import 'dart:ffi' as ffi;
 import 'dart:typed_data';
 
 import 'package:info.kyorohiro.mbedtls/buffer_io.dart';
-//import 'package:info.kyorohiro.mbedtls/buffer.dart';
-
 
 typedef KyMd5_alloc_func = ffi.Pointer<ffi.Uint8> Function();
 typedef KyMd5_alloc = ffi.Pointer<ffi.Uint8> Function();
@@ -61,11 +59,11 @@ class Md5 {
     _startRawMd5(_context);
   }
 
-  void update(KyBufferIo buffer,int index, int len){
+  void update(BufferIo buffer,int index, int len){
     _updateRawMd5(_context, buffer.rawBuffer.elementAt(index),len);
   }
 
-  void end(KyBufferIo buffer){
+  void end(BufferIo buffer){
     _endRawMd5(_context, buffer.rawBuffer);
   }
 
