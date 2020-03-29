@@ -23,16 +23,15 @@ typedef KyMd5_update = void Function(ffi.Pointer<ffi.Uint8> context, ffi.Pointer
 typedef KyMd5_end_func = ffi.Void Function(ffi.Pointer<ffi.Uint8> context, ffi.Pointer<ffi.Uint8> outout);
 typedef KyMd5_end = void Function(ffi.Pointer<ffi.Uint8> context, ffi.Pointer<ffi.Uint8> outout);
 
-class Md5 {
+class RawMd5 {
   KyMd5_alloc _allocRawMd5;
   KyMd5_free _freeRawMd5;
   KyMd5_free _initRawMd5;
   KyMd5_free _startRawMd5;
   KyMd5_update _updateRawMd5;
   KyMd5_end _endRawMd5;
-  ffi.Pointer<ffi.Uint8> _context;
 
-  Md5(ffi.DynamicLibrary dylib) {
+  RawMd5(ffi.DynamicLibrary dylib) {
     _allocRawMd5 = dylib
       .lookup<ffi.NativeFunction<KyMd5_alloc_func>>('KyMd5_alloc')
       .asFunction();
@@ -51,50 +50,56 @@ class Md5 {
     _endRawMd5 = dylib
       .lookup<ffi.NativeFunction<KyMd5_end_func>>('KyMd5_end')
       .asFunction();
-    _context = _allocRawMd5();
+  }
+
+  ffi.Pointer<ffi.Uint8> alloc() {
+    return _allocRawMd5();
+  }
+
+  void init(ffi.Pointer<ffi.Uint8> _context){
     _initRawMd5(_context);
   }
 
-
-  void start(){
+  void start(ffi.Pointer<ffi.Uint8> _context){
     _startRawMd5(_context);
   }
 
-  void update(ky.Buffer buffer,int index, int len){
+  void update(ffi.Pointer<ffi.Uint8> _context,ky.Buffer buffer,int index, int len){
     _updateRawMd5(_context, (buffer as BufferIo).rawBuffer.elementAt(index),len);
   }
 
-  void end(ky.Buffer buffer){
+  void end(ffi.Pointer<ffi.Uint8> _context, ky.Buffer buffer){
     _endRawMd5(_context, (buffer as BufferIo).rawBuffer);
   }
 
-  void despose(){
+  void free(ffi.Pointer<ffi.Uint8> _context){
     _freeRawMd5(_context);
   }
 }
 
-/*
+
 class Md5 {
   ffi.Pointer<ffi.Uint8> _context;
-  Md5(){
-    _context = allocRawMd5();
-    initRawMd5(_context);
+  final RawMd5 _raw;
+  Md5(this._raw){
+    _context = _raw.alloc();
+    _raw.init(_context);
   }
 
   void start(){
-    startRawMd5(_context);
+    _raw.start(_context);
   }
 
-  void update(KyBufferIo buffer,int index, int len){
-    updateRawMd5(_context, buffer.rawBuffer.elementAt(index),len);
+  void update(ky.Buffer buffer,int index, int len){
+    _raw.update(_context, buffer, index, len);
   }
 
-  void end(KyBufferIo buffer){
-    endRawMd5(_context, buffer.rawBuffer);
+  void end(ky.Buffer buffer){
+    _raw.end(_context, buffer);
   }
 
   void despose(){
-    freeRawMd5(_context);
+    _raw.free(_context);
   }
 }
-*/
+
