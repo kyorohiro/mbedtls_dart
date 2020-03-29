@@ -28,13 +28,23 @@ class RawBuffer {
   }
 }
 
-RawBuffer raw = new RawBuffer();
+class BufferBuilder {
+  RawBuffer _raw;
+  BufferBuilder(){
+    _raw = RawBuffer();
+  }
+  Buffer create(int len) {
+    return BufferWasm(_raw, len);
+  }
+}
+
 class BufferWasm extends Buffer {
   int _len;
   int _pointer;
   Uint8List _buffer;
+  final RawBuffer raw;
 
-  BufferWasm(int len):super(len)  {
+  BufferWasm(this.raw, int len):super(len)  {
     _len = len;
     _pointer = raw.alloc(len);
     _buffer = raw.get_buffer(_pointer, len);

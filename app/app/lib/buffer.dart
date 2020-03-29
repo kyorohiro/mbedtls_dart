@@ -1,6 +1,11 @@
 
 import 'dart:typed_data';
 
+
+abstract class BufferBuilder {
+  Buffer create(int len);
+}
+
 abstract class Buffer {
   int _len;
   Buffer(int len) {

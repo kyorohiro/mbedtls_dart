@@ -11,22 +11,25 @@ typedef KyBuffer_free_func = ffi.Void Function(ffi.Pointer<ffi.Uint8> buffer);
 typedef KyBuffer_free = void Function(ffi.Pointer<ffi.Uint8> buffer);
 
 class RawBuffer {
-  final ffi.DynamicLibrary dylib = ffi.DynamicLibrary.open('/app/libc/libmd5.so');
-  KyBuffer_alloc _raw_alloc;
-  KyBuffer_free _raw_free ;
+  //final ffi.DynamicLibrary dylib = ffi.DynamicLibrary.open('/app/libc/libmd5.so');
+  KyBuffer_alloc _alloc;
+  KyBuffer_free _free ;
   
-  RawBuffer(){
-    _raw_alloc = dylib
+  RawBuffer(final ffi.DynamicLibrary dylib){
+    _alloc = dylib
         .lookup<ffi.NativeFunction<KyBuffer_alloc_func>>('KyBuffer_alloc')
         .asFunction();
 
-    _raw_free = dylib
+    _free = dylib
         .lookup<ffi.NativeFunction<KyBuffer_free_func>>('KyBuffer_free')
         .asFunction();
   }
 
+  KyBuffer_alloc get rawAlloc => _alloc;
+  KyBuffer_free get rawFree => _free;
+
   int alloc(int len) {
-    return _raw_alloc(len).address;
+    return _alloc(len).address;
   }
 
   Uint8List get_buffer(int pointer, int len) {
@@ -34,19 +37,29 @@ class RawBuffer {
   }
 
   void free(int pointer){
-    _raw_free(ffi.Pointer.fromAddress(pointer));
+    _free(ffi.Pointer.fromAddress(pointer));
   }
 }
 
-RawBuffer raw = RawBuffer();
+class BufferBuilder {
+  RawBuffer _raw;
+  BufferBuilder(final ffi.DynamicLibrary dylib){
+    _raw = RawBuffer(dylib);
+  }
+  Buffer create(int len) {
+    return KyBufferIo(_raw, len);
+  }
+}
+
 class KyBufferIo extends Buffer {
   ffi.Pointer<ffi.Uint8> _rawBuffer;
   Uint8List _buffer;
   int _len;
+  final RawBuffer _raw;
 
-  KyBufferIo(int len):super(len) {
+  KyBufferIo(this._raw, int len):super(len) {
     _len = len;
-    _rawBuffer = raw._raw_alloc(len);
+    _rawBuffer = _raw._alloc(len);
     _buffer = _rawBuffer.asTypedList(len);
   }
 
@@ -61,7 +74,7 @@ class KyBufferIo extends Buffer {
   @override
   void dispose(){
     if(_rawBuffer != null) {
-      raw._raw_free(_rawBuffer);
+      _raw._free(_rawBuffer);
     }
     _rawBuffer = null;
   }

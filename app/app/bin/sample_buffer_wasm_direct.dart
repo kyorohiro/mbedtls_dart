@@ -1,6 +1,8 @@
 import 'dart:js' as js;
 import 'dart:typed_data';
-import 'buffer.dart';
+import 'package:info.kyorohiro.mbedtls/buffer.dart';
+
+import 'package:info.kyorohiro.mbedtls/buffer.dart';
 
 //
 js.JsObject Module = js.context["Module"];
