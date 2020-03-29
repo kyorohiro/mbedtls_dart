@@ -6,9 +6,7 @@ description: A starting point for Dart libraries or applications.
 environment:
   sdk: '>=2.7.0 <3.0.0'
 
-dependencies:
-#  path: ^1.6.0
-
 dev_dependencies:
+  build_runner: ^1.6.0
+  build_web_compilers: ^2.3.0
   pedantic: ^1.8.0
-  test: ^1.6.0
