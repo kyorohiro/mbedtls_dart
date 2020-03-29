@@ -12,14 +12,26 @@ typedef KyBuffer_free_func = ffi.Void Function(ffi.Pointer<ffi.Uint8> buffer);
 typedef KyBuffer_free = void Function(ffi.Pointer<ffi.Uint8> buffer);
 
 
-final KyBuffer_alloc alloc = dylib
+final KyBuffer_alloc _raw_alloc = dylib
     .lookup<ffi.NativeFunction<KyBuffer_alloc_func>>('KyBuffer_alloc')
     .asFunction();
 
-final KyBuffer_free free = dylib
+final KyBuffer_free _raw_free = dylib
     .lookup<ffi.NativeFunction<KyBuffer_free_func>>('KyBuffer_free')
     .asFunction();
 
+
+int alloc(int len) {
+  return _raw_alloc(len).address;
+}
+
+Uint8List get_buffer(int pointer, int len) {
+  return ffi.Pointer<ffi.Uint8>.fromAddress(pointer).asTypedList(len);
+}
+
+void free(int pointer){
+  _raw_free(ffi.Pointer.fromAddress(pointer));
+}
 
 class KyBufferIo extends Buffer {
   ffi.Pointer<ffi.Uint8> _rawBuffer;
@@ -28,7 +40,7 @@ class KyBufferIo extends Buffer {
 
   KyBufferIo(int len):super(len) {
     _len = len;
-    _rawBuffer = alloc(len);
+    _rawBuffer = _raw_alloc(len);
     _buffer = _rawBuffer.asTypedList(len);
   }
 
@@ -41,7 +53,7 @@ class KyBufferIo extends Buffer {
   @override
   void dispose(){
     if(_rawBuffer != null) {
-      free(_rawBuffer);
+      _raw_free(_rawBuffer);
     }
     _rawBuffer = null;
   }
