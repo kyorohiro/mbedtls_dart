@@ -2,7 +2,7 @@ import 'dart:ffi' as ffi;
 
 import 'dart:typed_data';
 
-import 'package:info.kyorohiro.mbedtls/buffer.dart';
+import 'package:info.kyorohiro.mbedtls/buffer.dart' as ky;
 
 typedef KyBuffer_alloc_func = ffi.Pointer<ffi.Uint8> Function(ffi.Uint64);
 typedef KyBuffer_alloc = ffi.Pointer<ffi.Uint8> Function(int);
@@ -40,17 +40,18 @@ class RawBuffer {
   }
 }
 
-class BufferBuilder {
+class BufferBuilderIo extends ky.BufferBuilder{
   RawBuffer _raw;
-  BufferBuilder(final ffi.DynamicLibrary dylib){
+  BufferBuilderIo(final ffi.DynamicLibrary dylib){
     _raw = RawBuffer(dylib);
   }
-  Buffer create(int len) {
+  @override
+  ky.Buffer create(int len) {
     return BufferIo(_raw, len);
   }
 }
 
-class BufferIo extends Buffer {
+class BufferIo extends ky.Buffer {
   ffi.Pointer<ffi.Uint8> _rawBuffer;
   Uint8List _buffer;
   int _len;

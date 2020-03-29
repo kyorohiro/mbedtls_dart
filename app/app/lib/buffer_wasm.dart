@@ -1,6 +1,6 @@
 import 'dart:js' as js;
 import 'dart:typed_data';
-import 'buffer.dart';
+import 'buffer.dart' as ky;
 
 //
 //js.JsObject Module = js.context["Module"];
@@ -28,17 +28,18 @@ class RawBuffer {
   }
 }
 
-class BufferBuilder {
+class BufferBuilderWasm extends ky.BufferBuilder {
   RawBuffer _raw;
-  BufferBuilder(){
+  BufferBuilderWasm(){
     _raw = RawBuffer();
   }
-  Buffer create(int len) {
+  @override
+  ky.Buffer create(int len) {
     return BufferWasm(_raw, len);
   }
 }
 
-class BufferWasm extends Buffer {
+class BufferWasm extends ky.Buffer {
   int _len;
   int _pointer;
   Uint8List _buffer;
