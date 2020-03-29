@@ -2047,10 +2047,10 @@ var ___wasm_call_ctors = Module["___wasm_call_ctors"] = function() {
 };
 
 /** @type {function(...*):?} */
-var _KyBuffer_new = Module["_KyBuffer_new"] = function() {
+var _KyBuffer_alloc = Module["_KyBuffer_alloc"] = function() {
   assert(runtimeInitialized, 'you need to wait for the runtime to be ready (e.g. wait for main() to be called)');
   assert(!runtimeExited, 'the runtime was exited (use NO_EXIT_RUNTIME to keep it alive after main() exits)');
-  return Module["asm"]["KyBuffer_new"].apply(null, arguments)
+  return Module["asm"]["KyBuffer_alloc"].apply(null, arguments)
 };
 
 /** @type {function(...*):?} */
@@ -2439,6 +2439,9 @@ run();
 
 
 
+KyBuffer_alloc = Module.cwrap('KyBuffer_alloc', 'number', ['number'])
+KyBuffer_free = Module.cwrap('KyBuffer_free','number',["number"])
 KyBuffer_get_buffer = function(index, len) {
     return new Uint8Array(Module.HEAP8.buffer, index, len);
 }
+

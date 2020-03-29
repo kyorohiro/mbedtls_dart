@@ -2,7 +2,7 @@
 #include <malloc.h>
 #include "buffer.h"
 
-KyBuffer* KyBuffer_new(size_t len){
+KyBuffer* KyBuffer_alloc(size_t len){
     return (KyBuffer*)malloc(len);
 }
 

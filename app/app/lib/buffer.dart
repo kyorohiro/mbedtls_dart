@@ -1,7 +1,7 @@
 
 import 'dart:typed_data';
 
-abstract class KyBuffer {
+abstract class Buffer {
   int _len;
   Buffer(int len) {
     _len = len;
