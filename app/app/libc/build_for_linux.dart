@@ -9,6 +9,11 @@ gcc -Wall -Werror -fpic -I. -c md5.c -o md5.o
 gcc -shared -o libkycrypt.so md5.o buffer.o /usr/local/lib/libmbedcrypto.a 
 
  */
+
+var files= [
+  'buffer.c', 'md5.c', 'sha1.c'
+];
+
 void rm_obj(){
    io.Process.runSync('rm', ['*.o']);
 }
@@ -31,14 +36,7 @@ void link_obj(List<String> files) {
   io.Process.runSync('gcc', args);
 }
 
-void copy_js(){
-   io.Process.runSync('cp', ['*.o']);
-}
 void main() {
-  var files= [
-    'buffer.c', 'md5.c'
-  ];
-
   rm_obj();
   for(var f in files) {
     gcc_obj(f);

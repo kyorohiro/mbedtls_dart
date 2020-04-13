@@ -12,6 +12,31 @@ cat kycrypt_buffer.js >> kycrypt.js
 cp kycrypt.js ../web/kycrypt.js
 cp kycrypt.wasm ../web/kycrypt.wasm
 */
+
+
+var files= [
+  'buffer.c', 'md5.c', 'sha1.c'
+];
+
+var funcs = [
+  '_KyBuffer_alloc',
+  '_KyBuffer_free',
+  //
+  '_KyMd5_alloc',
+  '_KyMd5_init',
+  '_KyMd5_start',
+  '_KyMd5_update',
+  '_KyMd5_end',
+  '_KyMd5_free',
+  //
+  '_KySHA1_alloc',
+  '_KySHA1_init',
+  '_KySHA1_start',
+  '_KySHA1_update',
+  '_KySHA1_end',
+  '_KySHA1_free',
+];
+
 void rm_obj(){
    io.Process.runSync('rm', ['*.o']);
    io.Process.runSync('rm', ['*.wasm']);
@@ -28,16 +53,7 @@ void gcc_obj(String filename){
 }
 
 void link_obj(List<String> files) {
-  var funcs = [
-    '_KyBuffer_alloc',
-    '_KyBuffer_free',
-    '_KyMd5_alloc',
-    '_KyMd5_init',
-    '_KyMd5_start',
-    '_KyMd5_update',
-    '_KyMd5_end',
-    '_KyMd5_free'
-  ];
+
   var objs =  files.map((v)=> v.replaceAll('.c', '.o'));
   var exps = funcs.map((v){
     return "'"+v+"'";
@@ -74,9 +90,6 @@ void copy_package(){
    io.Process.runSync('cp', ['kycrypt.wasm ','../web/kycrypt.wasm']);
 }
 void main() {
-  var files= [
-    'buffer.c', 'md5.c'
-  ];
 
   rm_obj();
   for(var f in files) {
