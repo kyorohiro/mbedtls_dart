@@ -4,6 +4,7 @@ import 'dart:typed_data';
 
 import 'package:info.kyorohiro.mbedtls/buffer_io.dart';
 import 'package:info.kyorohiro.mbedtls/buffer.dart' as ky;
+import 'package:info.kyorohiro.mbedtls/md5.dart' as ky;
 
 typedef KyMd5_alloc_func = ffi.Pointer<ffi.Uint8> Function();
 typedef KyMd5_alloc = ffi.Pointer<ffi.Uint8> Function();
@@ -78,12 +79,24 @@ class RawMd5 {
 }
 
 
-class Md5 {
+class Md5BuilderIO extends ky.Md5Builder {
+  RawMd5 _raw;
+  Md5BuilderIO (final ffi.DynamicLibrary dylib){
+    _raw = RawMd5(dylib);
+  }
+  @override
+  ky.Md5 create(){
+    return Md5Io(_raw);
+  }
+}
+
+class Md5Io extends ky.Md5{
   ffi.Pointer<ffi.Uint8> _context;
   final RawMd5 _raw;
-  Md5(this._raw){
+  Md5Io(this._raw){
     _context = _raw.alloc();
     _raw.init(_context);
+    start();
   }
 
   void start(){

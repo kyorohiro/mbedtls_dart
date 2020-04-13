@@ -17,7 +17,7 @@ void KyMd5_init(KyMD5 *context){
 void KyMd5_start(KyMD5 *context){
     mbedtls_md5_starts((mbedtls_md5_context*)context);
 }
-void KyMD5_update(KyMD5 *context, const unsigned char *input, size_t ilen){
+void KyMd5_update(KyMD5 *context, const unsigned char *input, size_t ilen){
     mbedtls_md5_update((mbedtls_md5_context*)context, input, ilen);
 }
 

@@ -1,4 +1,4 @@
-library kycrypt;
+library kycrypt_buffer;
 
 import 'dart:typed_data';
 
@@ -14,4 +14,12 @@ abstract class Buffer {
   Uint8List get buffer;
   int get len => _len;
   void dispose();
+
+  String toHex(){
+    var ret = StringBuffer();
+    for(var c in buffer) {
+      ret.write(c.toRadixString(16));
+    }
+    return ret.toString();
+  }
 }
