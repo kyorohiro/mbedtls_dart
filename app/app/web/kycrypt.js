@@ -2199,7 +2199,7 @@ Module['asm'] = asm;
 
 if (!Object.getOwnPropertyDescriptor(Module, "intArrayFromString")) Module["intArrayFromString"] = function() { abort("'intArrayFromString' was not exported. add it to EXTRA_EXPORTED_RUNTIME_METHODS (see the FAQ)") };
 if (!Object.getOwnPropertyDescriptor(Module, "intArrayToString")) Module["intArrayToString"] = function() { abort("'intArrayToString' was not exported. add it to EXTRA_EXPORTED_RUNTIME_METHODS (see the FAQ)") };
-Module["ccall"] = ccall;
+if (!Object.getOwnPropertyDescriptor(Module, "ccall")) Module["ccall"] = function() { abort("'ccall' was not exported. add it to EXTRA_EXPORTED_RUNTIME_METHODS (see the FAQ)") };
 Module["cwrap"] = cwrap;
 if (!Object.getOwnPropertyDescriptor(Module, "setValue")) Module["setValue"] = function() { abort("'setValue' was not exported. add it to EXTRA_EXPORTED_RUNTIME_METHODS (see the FAQ)") };
 if (!Object.getOwnPropertyDescriptor(Module, "getValue")) Module["getValue"] = function() { abort("'getValue' was not exported. add it to EXTRA_EXPORTED_RUNTIME_METHODS (see the FAQ)") };
@@ -2485,6 +2485,7 @@ run();
 
 
 
+
 KyBuffer_alloc = Module.cwrap('KyBuffer_alloc', 'number', ['number'])
 KyBuffer_free = Module.cwrap('KyBuffer_free','number',["number"])
 KyBuffer_get_buffer = function(index, len) {
@@ -2497,4 +2498,5 @@ KyMd5_start = Module.cwrap('KyMd5_start', '', ['number'])
 KyMd5_update = Module.cwrap('KyMd5_update', '', ['number','number','number'])
 KyMd5_end = Module.cwrap('KyMd5_end', '', ['number','number'])
 KyMd5_free = Module.cwrap('KyMd5_free', '', ['number','number'])
+
 
