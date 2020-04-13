@@ -6,7 +6,8 @@ import 'dart:io' as io;
 find . -name "*.o" | xargs rm
 gcc -Wall -Werror -fpic -I. -c buffer.c -o buffer.o 
 gcc -Wall -Werror -fpic -I. -c md5.c -o md5.o
-gcc -shared -o libkycrypt.so md5.o buffer.o /usr/local/lib/libmbedcrypto.a 
+gcc -Wall -Werror -fpic -I. -c sha1.c -o sha1.o
+gcc -shared -o libkycrypt.so sha1.o md5.o buffer.o /usr/local/lib/libmbedcrypto.a 
 
  */
 
@@ -29,11 +30,13 @@ void gcc_obj(String filename){
 
 void link_obj(List<String> files) {
   var objs = files.map((v)=> v.replaceAll('.c', '.o'));
-  var  args = [
-    '-shared', '-o', 'libkycrypt.so', '/usr/local/lib/libmbedcrypto.a'
-  ];
+  var  args = [];
+  args.addAll(['-shared', '-o', 'libkycrypt.so']);
   args.addAll(objs); 
-  io.Process.runSync('gcc', args);
+  args.addAll(['/usr/local/lib/libmbedcrypto.a']);
+  var r = io.Process.runSync('gcc', args);
+  print(r.stdout);
+  print(r.stderr);
 }
 
 void main() {

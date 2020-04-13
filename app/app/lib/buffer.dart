@@ -18,7 +18,8 @@ abstract class Buffer {
   String toHex(){
     var ret = StringBuffer();
     for(var c in buffer) {
-      ret.write(c.toRadixString(16));
+      ret.write(((c>>4)&0x0F).toRadixString(16));
+      ret.write((c & 0x0F).toRadixString(16));
     }
     return ret.toString();
   }

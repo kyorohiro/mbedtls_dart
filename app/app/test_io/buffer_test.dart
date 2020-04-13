@@ -5,7 +5,8 @@ import 'package:info.kyorohiro.mbedtls/buffer.dart' as ky;
 import 'package:info.kyorohiro.mbedtls/buffer_io.dart' as ky;
 import 'package:info.kyorohiro.mbedtls/md5.dart' as ky;
 import 'package:info.kyorohiro.mbedtls/md5_io.dart' as ky;
-
+import 'package:info.kyorohiro.mbedtls/sha1.dart' as ky;
+import 'package:info.kyorohiro.mbedtls/sha1_io.dart' as ky;
 import 'package:test/test.dart';
 //import 'dart:ffi' as ffi show DynamicLibrary;
 import 'dart:ffi' as ffi;
@@ -47,6 +48,22 @@ void main() {
     md5.end(outputBuffer);
 
     expect(outputBuffer.toHex(), '5d41402abc4b2a76b9719d911017c592');
+    
+  });
+
+
+  test('SHA1 Test', () {
+    var bufferBuilder = ky.BufferBuilderIo(dylib);
+    var builder = ky.SHA1BuilderIO(dylib);
+    var buffer = bufferBuilder.create(100);
+    var outputBuffer = bufferBuilder.create(20);
+    var sha1 = builder.create();
+    buffer.buffer.setAll(0, conv.utf8.encode('hello'));
+    sha1.start();
+    sha1.update(buffer, 5);
+    sha1.end(outputBuffer);
+
+    expect(outputBuffer.toHex(), 'aaf4c61ddcc5e8a2dabede0f3b482cd9aea9434d');
     
   });
 }
