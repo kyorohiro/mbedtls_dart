@@ -3,7 +3,8 @@ import 'dart:typed_data';
 import 'package:info.kyorohiro.mbedtls/buffer.dart';
 import 'package:test/test.dart';
 import 'package:info.kyorohiro.mbedtls/buffer_wasm.dart' as ky;
-
+import 'package:info.kyorohiro.mbedtls/md5_wasm.dart' as ky;
+import 'dart:convert' as conv;
 
 void main() {
   group('A group of tests', () {   
@@ -24,6 +25,30 @@ void main() {
         //expect(i, (buffer as ky.BufferIo).rawBuffer.elementAt(i).value);      
       }
       buffer.dispose();
+    });
+
+    test('MD5 Test', () {
+      print("---A1");
+      var bufferBuilder = ky.BufferBuilderWasm();
+      print("---A2");
+      var builder = ky.Md5BuilderWasm();
+      print("---A3");
+      var buffer = bufferBuilder.create(100);
+      print("---A4");
+      var outputBuffer = bufferBuilder.create(16);
+      print("---A5");
+      var md5 = builder.create();
+      print("---A6");
+      buffer.buffer.setAll(0, conv.utf8.encode('hello'));
+      print("---A7");
+      md5.start();
+      print("---A8");
+      md5.update(buffer, 5);
+      md5.end(outputBuffer);
+      print("---A10");
+
+      expect(outputBuffer.toHex(), '5d41402abc4b2a76b9719d911017c592');
+      
     });
   });
 }

@@ -12,7 +12,7 @@ import 'dart:ffi' as ffi;
 import 'dart:convert' as conv show utf8;
 void main() {
   final ffi.DynamicLibrary dylib = ffi.DynamicLibrary.open('/app/libc/libkycrypt.so');
-  /*
+  
   group('XXX', () {
    
     setUp(() {
@@ -34,7 +34,7 @@ void main() {
       buffer.dispose();
     });
   });
-  */
+  
   test('MD5 Test', () {
     var bufferBuilder = ky.BufferBuilderIo(dylib);
     var builder = ky.Md5BuilderIO(dylib);
@@ -43,8 +43,7 @@ void main() {
     var md5 = builder.create();
     buffer.buffer.setAll(0, conv.utf8.encode('hello'));
     md5.start();
-    md5.update(buffer, 0, 3);
-    md5.update(buffer, 3, 2);
+    md5.update(buffer, 5);
     md5.end(outputBuffer);
 
     expect(outputBuffer.toHex(), '5d41402abc4b2a76b9719d911017c592');

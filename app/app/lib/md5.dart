@@ -7,7 +7,7 @@ abstract class Md5Builder {
 
 abstract class Md5 {
   void start();
-  void update(ky.Buffer buffer,int index, int len);
+  void update(ky.Buffer buffer, int len);
 
   ///
   /// The required [buffer] 's size is 16 

@@ -1878,6 +1878,10 @@ var ASM_CONSTS = {
       return 2736;
     }
 
+  function _emscripten_memcpy_big(dest, src, num) {
+      HEAPU8.copyWithin(dest, src, src + num);
+    }
+
   
   function _emscripten_get_heap_size() {
       return HEAPU8.length;
@@ -2036,7 +2040,7 @@ function intArrayToString(array) {
 
 
 var asmGlobalArg = {};
-var asmLibraryArg = { "__handle_stack_overflow": ___handle_stack_overflow, "emscripten_get_sbrk_ptr": _emscripten_get_sbrk_ptr, "emscripten_resize_heap": _emscripten_resize_heap, "fd_write": _fd_write, "memory": wasmMemory, "setTempRet0": _setTempRet0, "table": wasmTable };
+var asmLibraryArg = { "__handle_stack_overflow": ___handle_stack_overflow, "emscripten_get_sbrk_ptr": _emscripten_get_sbrk_ptr, "emscripten_memcpy_big": _emscripten_memcpy_big, "emscripten_resize_heap": _emscripten_resize_heap, "fd_write": _fd_write, "memory": wasmMemory, "setTempRet0": _setTempRet0, "table": wasmTable };
 var asm = createWasm();
 Module["asm"] = asm;
 /** @type {function(...*):?} */
@@ -2072,6 +2076,48 @@ var _free = Module["_free"] = function() {
   assert(runtimeInitialized, 'you need to wait for the runtime to be ready (e.g. wait for main() to be called)');
   assert(!runtimeExited, 'the runtime was exited (use NO_EXIT_RUNTIME to keep it alive after main() exits)');
   return Module["asm"]["free"].apply(null, arguments)
+};
+
+/** @type {function(...*):?} */
+var _KyMd5_alloc = Module["_KyMd5_alloc"] = function() {
+  assert(runtimeInitialized, 'you need to wait for the runtime to be ready (e.g. wait for main() to be called)');
+  assert(!runtimeExited, 'the runtime was exited (use NO_EXIT_RUNTIME to keep it alive after main() exits)');
+  return Module["asm"]["KyMd5_alloc"].apply(null, arguments)
+};
+
+/** @type {function(...*):?} */
+var _KyMd5_init = Module["_KyMd5_init"] = function() {
+  assert(runtimeInitialized, 'you need to wait for the runtime to be ready (e.g. wait for main() to be called)');
+  assert(!runtimeExited, 'the runtime was exited (use NO_EXIT_RUNTIME to keep it alive after main() exits)');
+  return Module["asm"]["KyMd5_init"].apply(null, arguments)
+};
+
+/** @type {function(...*):?} */
+var _KyMd5_start = Module["_KyMd5_start"] = function() {
+  assert(runtimeInitialized, 'you need to wait for the runtime to be ready (e.g. wait for main() to be called)');
+  assert(!runtimeExited, 'the runtime was exited (use NO_EXIT_RUNTIME to keep it alive after main() exits)');
+  return Module["asm"]["KyMd5_start"].apply(null, arguments)
+};
+
+/** @type {function(...*):?} */
+var _KyMd5_update = Module["_KyMd5_update"] = function() {
+  assert(runtimeInitialized, 'you need to wait for the runtime to be ready (e.g. wait for main() to be called)');
+  assert(!runtimeExited, 'the runtime was exited (use NO_EXIT_RUNTIME to keep it alive after main() exits)');
+  return Module["asm"]["KyMd5_update"].apply(null, arguments)
+};
+
+/** @type {function(...*):?} */
+var _KyMd5_end = Module["_KyMd5_end"] = function() {
+  assert(runtimeInitialized, 'you need to wait for the runtime to be ready (e.g. wait for main() to be called)');
+  assert(!runtimeExited, 'the runtime was exited (use NO_EXIT_RUNTIME to keep it alive after main() exits)');
+  return Module["asm"]["KyMd5_end"].apply(null, arguments)
+};
+
+/** @type {function(...*):?} */
+var _KyMd5_free = Module["_KyMd5_free"] = function() {
+  assert(runtimeInitialized, 'you need to wait for the runtime to be ready (e.g. wait for main() to be called)');
+  assert(!runtimeExited, 'the runtime was exited (use NO_EXIT_RUNTIME to keep it alive after main() exits)');
+  return Module["asm"]["KyMd5_free"].apply(null, arguments)
 };
 
 /** @type {function(...*):?} */
@@ -2444,4 +2490,11 @@ KyBuffer_free = Module.cwrap('KyBuffer_free','number',["number"])
 KyBuffer_get_buffer = function(index, len) {
     return new Uint8Array(Module.HEAP8.buffer, index, len);
 }
+
+KyMd5_alloc = Module.cwrap('KyMd5_alloc', 'number', [])
+KyMd5_init = Module.cwrap('KyMd5_init', '', ['number'])
+KyMd5_start = Module.cwrap('KyMd5_start', '', ['number'])
+KyMd5_update = Module.cwrap('KyMd5_update', '', ['number','number','number'])
+KyMd5_end = Module.cwrap('KyMd5_end', '', ['number','number'])
+KyMd5_free = Module.cwrap('KyMd5_free', '', ['number','number'])
 

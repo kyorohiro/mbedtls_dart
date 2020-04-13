@@ -65,8 +65,8 @@ class RawMd5 {
     _startRawMd5(_context);
   }
 
-  void update(ffi.Pointer<ffi.Uint8> _context,ky.Buffer buffer,int index, int len){
-    _updateRawMd5(_context, (buffer as BufferIo).rawBuffer.elementAt(index),len);
+  void update(ffi.Pointer<ffi.Uint8> _context,ky.Buffer buffer,int len){
+    _updateRawMd5(_context, (buffer as BufferIo).rawBuffer,len);
   }
 
   void end(ffi.Pointer<ffi.Uint8> _context, ky.Buffer buffer){
@@ -103,8 +103,8 @@ class Md5Io extends ky.Md5{
     _raw.start(_context);
   }
 
-  void update(ky.Buffer buffer,int index, int len){
-    _raw.update(_context, buffer, index, len);
+  void update(ky.Buffer buffer,int len){
+    _raw.update(_context, buffer, len);
   }
 
   void end(ky.Buffer buffer){

@@ -1,7 +1,7 @@
 import 'dart:js' as js;
 import 'dart:typed_data';
 import 'buffer.dart' as ky;
-
+import 'md5.dart' as ky;
 //
 //js.JsObject Module = js.context["Module"];
 //js.JsFunction hello =  Module.callMethod('cwrap',['hello']);
@@ -44,6 +44,7 @@ class BufferWasm extends ky.Buffer {
   int _pointer;
   Uint8List _buffer;
   final RawBuffer raw;
+  int get pointer => _pointer;
 
   BufferWasm(this.raw, int len):super(len)  {
     _len = len;
