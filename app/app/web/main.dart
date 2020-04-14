@@ -4,6 +4,7 @@ import 'package:info.kyorohiro.mbedtls/buffer.dart';
 import 'package:test/test.dart';
 import 'package:info.kyorohiro.mbedtls/buffer_wasm.dart' as ky;
 import 'package:info.kyorohiro.mbedtls/md5_wasm.dart' as ky;
+import 'package:info.kyorohiro.mbedtls/sha1_wasm.dart' as ky;
 import 'dart:convert' as conv;
 
 void main() {
@@ -28,27 +29,29 @@ void main() {
     });
 
     test('MD5 Test', () {
-      print("---A1");
       var bufferBuilder = ky.BufferBuilderWasm();
-      print("---A2");
       var builder = ky.Md5BuilderWasm();
-      print("---A3");
       var buffer = bufferBuilder.create(100);
-      print("---A4");
       var outputBuffer = bufferBuilder.create(16);
-      print("---A5");
       var md5 = builder.create();
-      print("---A6");
       buffer.buffer.setAll(0, conv.utf8.encode('hello'));
-      print("---A7");
       md5.start();
-      print("---A8");
       md5.update(buffer, 5);
       md5.end(outputBuffer);
-      print("---A10");
+      expect(outputBuffer.toHex(), '5d41402abc4b2a76b9719d911017c592');      
+    });
 
-      expect(outputBuffer.toHex(), '5d41402abc4b2a76b9719d911017c592');
-      
+    test('SHA1 Test', () {
+      var bufferBuilder = ky.BufferBuilderWasm();
+      var builder = ky.SHA1BuilderWasm();
+      var buffer = bufferBuilder.create(100);
+      var outputBuffer = bufferBuilder.create(20);
+      var sha1 = builder.create();
+      buffer.buffer.setAll(0, conv.utf8.encode('hello'));
+      sha1.start();
+      sha1.update(buffer, 5);
+      sha1.end(outputBuffer);
+      expect(outputBuffer.toHex(), '5d41402abc4b2a76b9719d911017c592');      
     });
   });
 }
