@@ -1271,11 +1271,11 @@ function updateGlobalBufferAndViews(buf) {
 }
 
 var STATIC_BASE = 1024,
-    STACK_BASE = 5245776,
+    STACK_BASE = 5246672,
     STACKTOP = STACK_BASE,
-    STACK_MAX = 2896,
-    DYNAMIC_BASE = 5245776,
-    DYNAMICTOP_PTR = 2736;
+    STACK_MAX = 3792,
+    DYNAMIC_BASE = 5246672,
+    DYNAMICTOP_PTR = 3632;
 
 assert(STACK_BASE % 16 === 0, 'stack must start aligned');
 assert(DYNAMIC_BASE % 16 === 0, 'heap must start aligned');
@@ -1822,7 +1822,7 @@ var ASM_CONSTS = {
 
 
 
-// STATICTOP = STATIC_BASE + 1872;
+// STATICTOP = STATIC_BASE + 2768;
 /* global initializers */  __ATINIT__.push({ func: function() { ___wasm_call_ctors() } });
 
 
@@ -1875,7 +1875,7 @@ var ASM_CONSTS = {
     }
 
   function _emscripten_get_sbrk_ptr() {
-      return 2736;
+      return 3632;
     }
 
   function _emscripten_memcpy_big(dest, src, num) {
@@ -2160,6 +2160,90 @@ var _KySHA1_free = Module["_KySHA1_free"] = function() {
   assert(runtimeInitialized, 'you need to wait for the runtime to be ready (e.g. wait for main() to be called)');
   assert(!runtimeExited, 'the runtime was exited (use NO_EXIT_RUNTIME to keep it alive after main() exits)');
   return Module["asm"]["KySHA1_free"].apply(null, arguments)
+};
+
+/** @type {function(...*):?} */
+var _KySHA256_alloc = Module["_KySHA256_alloc"] = function() {
+  assert(runtimeInitialized, 'you need to wait for the runtime to be ready (e.g. wait for main() to be called)');
+  assert(!runtimeExited, 'the runtime was exited (use NO_EXIT_RUNTIME to keep it alive after main() exits)');
+  return Module["asm"]["KySHA256_alloc"].apply(null, arguments)
+};
+
+/** @type {function(...*):?} */
+var _KySHA256_init = Module["_KySHA256_init"] = function() {
+  assert(runtimeInitialized, 'you need to wait for the runtime to be ready (e.g. wait for main() to be called)');
+  assert(!runtimeExited, 'the runtime was exited (use NO_EXIT_RUNTIME to keep it alive after main() exits)');
+  return Module["asm"]["KySHA256_init"].apply(null, arguments)
+};
+
+/** @type {function(...*):?} */
+var _KySHA256_starts = Module["_KySHA256_starts"] = function() {
+  assert(runtimeInitialized, 'you need to wait for the runtime to be ready (e.g. wait for main() to be called)');
+  assert(!runtimeExited, 'the runtime was exited (use NO_EXIT_RUNTIME to keep it alive after main() exits)');
+  return Module["asm"]["KySHA256_starts"].apply(null, arguments)
+};
+
+/** @type {function(...*):?} */
+var _KySHA256_update = Module["_KySHA256_update"] = function() {
+  assert(runtimeInitialized, 'you need to wait for the runtime to be ready (e.g. wait for main() to be called)');
+  assert(!runtimeExited, 'the runtime was exited (use NO_EXIT_RUNTIME to keep it alive after main() exits)');
+  return Module["asm"]["KySHA256_update"].apply(null, arguments)
+};
+
+/** @type {function(...*):?} */
+var _KySHA256_end = Module["_KySHA256_end"] = function() {
+  assert(runtimeInitialized, 'you need to wait for the runtime to be ready (e.g. wait for main() to be called)');
+  assert(!runtimeExited, 'the runtime was exited (use NO_EXIT_RUNTIME to keep it alive after main() exits)');
+  return Module["asm"]["KySHA256_end"].apply(null, arguments)
+};
+
+/** @type {function(...*):?} */
+var _KySHA256_free = Module["_KySHA256_free"] = function() {
+  assert(runtimeInitialized, 'you need to wait for the runtime to be ready (e.g. wait for main() to be called)');
+  assert(!runtimeExited, 'the runtime was exited (use NO_EXIT_RUNTIME to keep it alive after main() exits)');
+  return Module["asm"]["KySHA256_free"].apply(null, arguments)
+};
+
+/** @type {function(...*):?} */
+var _KySHA512_alloc = Module["_KySHA512_alloc"] = function() {
+  assert(runtimeInitialized, 'you need to wait for the runtime to be ready (e.g. wait for main() to be called)');
+  assert(!runtimeExited, 'the runtime was exited (use NO_EXIT_RUNTIME to keep it alive after main() exits)');
+  return Module["asm"]["KySHA512_alloc"].apply(null, arguments)
+};
+
+/** @type {function(...*):?} */
+var _KySHA512_init = Module["_KySHA512_init"] = function() {
+  assert(runtimeInitialized, 'you need to wait for the runtime to be ready (e.g. wait for main() to be called)');
+  assert(!runtimeExited, 'the runtime was exited (use NO_EXIT_RUNTIME to keep it alive after main() exits)');
+  return Module["asm"]["KySHA512_init"].apply(null, arguments)
+};
+
+/** @type {function(...*):?} */
+var _KySHA512_starts = Module["_KySHA512_starts"] = function() {
+  assert(runtimeInitialized, 'you need to wait for the runtime to be ready (e.g. wait for main() to be called)');
+  assert(!runtimeExited, 'the runtime was exited (use NO_EXIT_RUNTIME to keep it alive after main() exits)');
+  return Module["asm"]["KySHA512_starts"].apply(null, arguments)
+};
+
+/** @type {function(...*):?} */
+var _KySHA512_update = Module["_KySHA512_update"] = function() {
+  assert(runtimeInitialized, 'you need to wait for the runtime to be ready (e.g. wait for main() to be called)');
+  assert(!runtimeExited, 'the runtime was exited (use NO_EXIT_RUNTIME to keep it alive after main() exits)');
+  return Module["asm"]["KySHA512_update"].apply(null, arguments)
+};
+
+/** @type {function(...*):?} */
+var _KySHA512_end = Module["_KySHA512_end"] = function() {
+  assert(runtimeInitialized, 'you need to wait for the runtime to be ready (e.g. wait for main() to be called)');
+  assert(!runtimeExited, 'the runtime was exited (use NO_EXIT_RUNTIME to keep it alive after main() exits)');
+  return Module["asm"]["KySHA512_end"].apply(null, arguments)
+};
+
+/** @type {function(...*):?} */
+var _KySHA512_free = Module["_KySHA512_free"] = function() {
+  assert(runtimeInitialized, 'you need to wait for the runtime to be ready (e.g. wait for main() to be called)');
+  assert(!runtimeExited, 'the runtime was exited (use NO_EXIT_RUNTIME to keep it alive after main() exits)');
+  return Module["asm"]["KySHA512_free"].apply(null, arguments)
 };
 
 /** @type {function(...*):?} */
@@ -2549,4 +2633,17 @@ KySHA1_update = Module.cwrap('KySHA1_update', '', ['number','number','number'])
 KySHA1_end = Module.cwrap('KySHA1_end', '', ['number','number'])
 KySHA1_free = Module.cwrap('KySHA1_free', '', ['number','number'])
 
+KySHA256_alloc = Module.cwrap('KySHA256_alloc', 'number', [])
+KySHA256_init = Module.cwrap('KySHA256_init', '', ['number'])
+KySHA256_starts = Module.cwrap('KySHA256_starts', '', ['number'])
+KySHA256_update = Module.cwrap('KySHA256_update', '', ['number','number','number'])
+KySHA256_end = Module.cwrap('KySHA256_end', '', ['number','number'])
+KySHA256_free = Module.cwrap('KySHA256_free', '', ['number','number'])
+
+KySHA512_alloc = Module.cwrap('KySHA512_alloc', 'number', [])
+KySHA512_init = Module.cwrap('KySHA512_init', '', ['number'])
+KySHA512_starts = Module.cwrap('KySHA512_starts', '', ['number'])
+KySHA512_update = Module.cwrap('KySHA512_update', '', ['number','number','number'])
+KySHA512_end = Module.cwrap('KySHA512_end', '', ['number','number'])
+KySHA512_free = Module.cwrap('KySHA512_free', '', ['number','number'])
 

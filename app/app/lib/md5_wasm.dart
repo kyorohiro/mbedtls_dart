@@ -22,15 +22,20 @@ class RawMd5 {
   int alloc() {
     print("----B2a");
     print(_alloc);
-     print("----B2b");
-    return _alloc.apply([]);
+    print("----B2b");
+    var l= _alloc.apply([]);
+    print("----B2c");
+    return l;
   }
   void  init(int pointer) {
     _init.apply([pointer]);
   }
 
   void start(int pointer) {
+    print("----B3a");
+    print(_start);
     _start.apply([pointer]);
+    print("----B3b");
   }
 
   Uint8List update(int pointer, int bufferPointer, int len) {
@@ -66,7 +71,7 @@ class Md5Wasm extends ky.Md5 {
   Md5Wasm(this.raw) {
     _pointer = raw.alloc();
     raw.init(_pointer);
-    start();
+    starts();
   }
   @override
   void despose() {
@@ -79,7 +84,7 @@ class Md5Wasm extends ky.Md5 {
   }
 
   @override
-  void start() {
+  void starts() {
     raw.start(_pointer);
   }
 

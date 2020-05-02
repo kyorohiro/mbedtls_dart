@@ -12,10 +12,11 @@ cat kycrypt_buffer.js >> kycrypt.js
 cp kycrypt.js ../web/kycrypt.js
 cp kycrypt.wasm ../web/kycrypt.wasm
 */
+// emcc build/buffer.o build/md5.o -o build/kycrypt.js -lmbedcrypto -L/works/mbedtls-2.16.5/library -s EXTRA_EXPORTED_RUNTIME_METHODS='["ccall", "cwrap"]' -s EXPORTED_FUNCTIONS="['_KyBuffer_alloc','_KyBuffer_free','_KyMd5_alloc','_KyMd5_alloc','_KyMd5_init','_KyMd5_starts','_KyMd5_update','_KyMd5_end','_KyMd5_free']"
 
 
 var files= [
-  'src/buffer.c', 'src/md5.c', 'src/sha1.c'
+  'src/buffer.c', 'src/md5.c', 'src/sha1.c', 'src/sha256.c', 'src/sha512.c'
 ];
 
 var funcs = [
@@ -35,6 +36,20 @@ var funcs = [
   '_KySHA1_update',
   '_KySHA1_end',
   '_KySHA1_free',
+  //
+  '_KySHA256_alloc',
+  '_KySHA256_init',
+  '_KySHA256_starts',
+  '_KySHA256_update',
+  '_KySHA256_end',
+  '_KySHA256_free',
+  //
+  '_KySHA512_alloc',
+  '_KySHA512_init',
+  '_KySHA512_starts',
+  '_KySHA512_update',
+  '_KySHA512_end',
+  '_KySHA512_free',
 ];
 
 void rm_obj(){
@@ -77,7 +92,7 @@ void link_obj(List<String> files) {
 }
 
 void copy_package(){
-   var input = io.File("./src/kycrypt_buffer.js");
+   var input = io.File("./src/kycrypty_util.js");
    var output = io.File("./build/kycrypt.js");
    print("^^^^D1");
    output.writeAsStringSync("\n",mode: io.FileMode.append);
@@ -87,8 +102,15 @@ void copy_package(){
    output.writeAsStringSync("\n",mode: io.FileMode.append);
    print("^^^^D4");
    
-   io.Process.runSync('cp', ['./build/kycrypt.js','../web/kycrypt.js']);
-   io.Process.runSync('cp', ['./build/kycrypt.wasm ','../web/kycrypt.wasm']);
+   var result = io.Process.runSync('cp', ['./build/kycrypt.js','../web/kycrypt.js']);
+   print(">>> ${result.stderr}");
+   print(">>> ${result.stdout}");
+   print(">>> ${result.exitCode}");
+   result = io.Process.runSync('cp', ['./build/kycrypt.wasm','../web/kycrypt.wasm']);
+   print(">>> ${result.stderr}");
+   print(">>> ${result.stdout}");
+   print(">>> ${result.exitCode}");
+
 }
 void main() {
 

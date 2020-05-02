@@ -20,9 +20,6 @@ class RawSHA1 {
   final js.JsFunction _free = js.context['KySHA1_free'];
 
   int alloc() {
-    print("----B2a");
-    print(_alloc);
-     print("----B2b");
     return _alloc.apply([]);
   }
   void  init(int pointer) {
@@ -66,7 +63,7 @@ class SHA1Wasm extends ky.SHA1 {
   SHA1Wasm(this.raw) {
     _pointer = raw.alloc();
     raw.init(_pointer);
-    start();
+    starts();
   }
   @override
   void despose() {
@@ -79,7 +76,7 @@ class SHA1Wasm extends ky.SHA1 {
   }
 
   @override
-  void start() {
+  void starts() {
     raw.start(_pointer);
   }
 

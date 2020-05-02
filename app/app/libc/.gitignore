@@ -3,5 +3,6 @@
 *.wasm
 !kycrypty_util.js
 build/*
+!src/kycrypty_util.js
 !build/README.md
 !build/READMEmd
