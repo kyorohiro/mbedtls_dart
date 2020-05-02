@@ -6,7 +6,7 @@ abstract class Md5Builder {
 }
 
 abstract class Md5 {
-  void start();
+  void starts();
   void update(ky.Buffer buffer, int len);
 
   ///

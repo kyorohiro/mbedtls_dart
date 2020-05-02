@@ -96,10 +96,10 @@ class SHA1Io extends ky.SHA1{
   SHA1Io(this._raw){
     _context = _raw.alloc();
     _raw.init(_context);
-    start();
+    starts();
   }
 
-  void start(){
+  void starts(){
     _raw.start(_context);
   }
 

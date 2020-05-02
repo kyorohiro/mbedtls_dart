@@ -6,7 +6,7 @@ abstract class SHA1Builder {
 }
 
 abstract class SHA1 {
-  void start();
+  void starts();
   void update(ky.Buffer buffer, int len);
 
   ///

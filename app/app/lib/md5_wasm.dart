@@ -66,7 +66,7 @@ class Md5Wasm extends ky.Md5 {
   Md5Wasm(this.raw) {
     _pointer = raw.alloc();
     raw.init(_pointer);
-    start();
+    starts();
   }
   @override
   void despose() {
@@ -79,7 +79,7 @@ class Md5Wasm extends ky.Md5 {
   }
 
   @override
-  void start() {
+  void starts() {
     raw.start(_pointer);
   }
 

@@ -43,7 +43,7 @@ void main() {
     var outputBuffer = bufferBuilder.create(16);
     var md5 = builder.create();
     buffer.buffer.setAll(0, conv.utf8.encode('hello'));
-    md5.start();
+    md5.starts();
     md5.update(buffer, 5);
     md5.end(outputBuffer);
 
@@ -59,7 +59,7 @@ void main() {
     var outputBuffer = bufferBuilder.create(20);
     var sha1 = builder.create();
     buffer.buffer.setAll(0, conv.utf8.encode('hello'));
-    sha1.start();
+    sha1.starts();
     sha1.update(buffer, 5);
     sha1.end(outputBuffer);
 
