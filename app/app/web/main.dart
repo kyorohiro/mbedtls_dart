@@ -51,7 +51,8 @@ void main() {
       sha1.starts();
       sha1.update(buffer, 5);
       sha1.end(outputBuffer);
-      expect(outputBuffer.toHex(), '5d41402abc4b2a76b9719d911017c592');      
+      expect(outputBuffer.toHex(), 'aaf4c61ddcc5e8a2dabede0f3b482cd9aea9434d');     
     });
+    //
   });
 }

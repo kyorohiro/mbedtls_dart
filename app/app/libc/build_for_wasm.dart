@@ -12,6 +12,7 @@ cat kycrypt_buffer.js >> kycrypt.js
 cp kycrypt.js ../web/kycrypt.js
 cp kycrypt.wasm ../web/kycrypt.wasm
 */
+// emcc build/buffer.o build/md5.o -o build/kycrypt.js -lmbedcrypto -L/works/mbedtls-2.16.5/library -s EXTRA_EXPORTED_RUNTIME_METHODS='["ccall", "cwrap"]' -s EXPORTED_FUNCTIONS="['_KyBuffer_alloc','_KyBuffer_free','_KyMd5_alloc','_KyMd5_alloc','_KyMd5_init','_KyMd5_starts','_KyMd5_update','_KyMd5_end','_KyMd5_free']"
 
 
 var files= [
@@ -101,8 +102,15 @@ void copy_package(){
    output.writeAsStringSync("\n",mode: io.FileMode.append);
    print("^^^^D4");
    
-   io.Process.runSync('cp', ['./build/kycrypt.js','../web/kycrypt.js']);
-   io.Process.runSync('cp', ['./build/kycrypt.wasm ','../web/kycrypt.wasm']);
+   var result = io.Process.runSync('cp', ['./build/kycrypt.js','../web/kycrypt.js']);
+   print(">>> ${result.stderr}");
+   print(">>> ${result.stdout}");
+   print(">>> ${result.exitCode}");
+   result = io.Process.runSync('cp', ['./build/kycrypt.wasm','../web/kycrypt.wasm']);
+   print(">>> ${result.stderr}");
+   print(">>> ${result.stdout}");
+   print(">>> ${result.exitCode}");
+
 }
 void main() {
 
