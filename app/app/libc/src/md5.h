@@ -7,7 +7,7 @@ typedef struct {
 
 KyMD5* Md5_alloc();
 void KyMd5_init(KyMD5 *context);
-void KyMd5_start(KyMD5 *context);
+void KyMd5_starts(KyMD5 *context);
 void KyMD5_update(KyMD5 *context, const unsigned char *input, size_t ilen);
 void KyMd5_end(KyMD5 *context, unsigned char output[16]);
 void KyMd5_free(KyMD5 *context);

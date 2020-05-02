@@ -7,14 +7,14 @@ import 'md5.dart' as ky;
 
 //KyMd5_alloc = Module.cwrap('KyMd5_alloc', 'number', [])
 //KyMd5_init = Module.cwrap('KyMd5_init', '', [])
-//KyMd5_start = Module.cwrap('KyMd5_start', '', ['number'])
+//KyMd5_starts = Module.cwrap('KyMd5_starts', '', ['number'])
 //KyMd5_update = Module.cwrap('KyMd5_update', '', ['number','number','number'])
 //KyMd5_end = Module.cwrap('KyMd5_end', '', ['number','number'])
 //KyMd5_free = Module.cwrap('KyMd5_free', '', ['number','number'])
 class RawMd5 {
   final js.JsFunction _alloc = js.context['KyMd5_alloc'];
   final js.JsFunction _init = js.context['KyMd5_init'];
-  final js.JsFunction _start = js.context['KyMd5_start'];
+  final js.JsFunction _start = js.context['KyMd5_starts'];
   final js.JsFunction _update = js.context['KyMd5_update'];
   final js.JsFunction _end = js.context['KyMd5_end'];
   final js.JsFunction _free = js.context['KyMd5_free'];

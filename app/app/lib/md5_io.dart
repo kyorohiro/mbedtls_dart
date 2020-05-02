@@ -15,8 +15,8 @@ typedef KyMd5_free = void Function(ffi.Pointer<ffi.Uint8> context);
 typedef KyMd5_init_func = ffi.Void Function(ffi.Pointer<ffi.Uint8> context);
 typedef KyMd5_init = void Function(ffi.Pointer<ffi.Uint8> context);
 
-typedef KyMd5_start_func = ffi.Void Function(ffi.Pointer<ffi.Uint8> context);
-typedef KyMd5_start = void Function(ffi.Pointer<ffi.Uint8> context);
+typedef KyMd5_starts_func = ffi.Void Function(ffi.Pointer<ffi.Uint8> context);
+typedef KyMd5_starts = void Function(ffi.Pointer<ffi.Uint8> context);
 
 typedef KyMd5_update_func = ffi.Void Function(ffi.Pointer<ffi.Uint8> context, ffi.Pointer<ffi.Uint8> input, ffi.Int32 len);
 typedef KyMd5_update = void Function(ffi.Pointer<ffi.Uint8> context, ffi.Pointer<ffi.Uint8> input, int len);
@@ -43,7 +43,7 @@ class RawMd5 {
       .lookup<ffi.NativeFunction<KyMd5_init_func>>('KyMd5_init')
       .asFunction();
     _startRawMd5 = dylib
-      .lookup<ffi.NativeFunction<KyMd5_free_func>>('KyMd5_start')
+      .lookup<ffi.NativeFunction<KyMd5_free_func>>('KyMd5_starts')
       .asFunction();
     _updateRawMd5 = dylib
       .lookup<ffi.NativeFunction<KyMd5_update_func>>('KyMd5_update')

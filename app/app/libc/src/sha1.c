@@ -12,7 +12,7 @@ KySHA1* KySHA1_alloc() {
 void KySHA1_init(KySHA1 *context){
     mbedtls_sha1_init((mbedtls_sha1_context*)context);
 }
-void KySHA1_start(KySHA1 *context) {
+void KySHA1_starts(KySHA1 *context) {
     mbedtls_sha1_starts((mbedtls_sha1_context*)context);
 }
 void KySHA1_update(KySHA1 *context, const unsigned char *input, size_t ilen) {

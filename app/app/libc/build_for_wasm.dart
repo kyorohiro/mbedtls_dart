@@ -6,7 +6,7 @@ find . -name "*.o" | xargs rm
 find . -name "*.wasm" | xargs rm
 emcc buffer.c -o buffer.o 
 emcc md5.c -o md5.o -I/works/mbedtls-2.16.5/include/
-emcc buffer.o md5.o -o kycrypt.js -lmbedcrypto -L/works/mbedtls-2.16.5/library -s EXTRA_EXPORTED_RUNTIME_METHODS='["ccall", "cwrap"]' -s EXPORTED_FUNCTIONS="['_KyBuffer_alloc','_KyBuffer_free','_KyMd5_alloc','_KyMd5_alloc','_KyMd5_init','_KyMd5_start','_KyMd5_update','_KyMd5_end','_KyMd5_free']"
+emcc buffer.o md5.o -o kycrypt.js -lmbedcrypto -L/works/mbedtls-2.16.5/library -s EXTRA_EXPORTED_RUNTIME_METHODS='["ccall", "cwrap"]' -s EXPORTED_FUNCTIONS="['_KyBuffer_alloc','_KyBuffer_free','_KyMd5_alloc','_KyMd5_alloc','_KyMd5_init','_KyMd5_starts','_KyMd5_update','_KyMd5_end','_KyMd5_free']"
 
 cat kycrypt_buffer.js >> kycrypt.js
 cp kycrypt.js ../web/kycrypt.js
@@ -24,14 +24,14 @@ var funcs = [
   //
   '_KyMd5_alloc',
   '_KyMd5_init',
-  '_KyMd5_start',
+  '_KyMd5_starts',
   '_KyMd5_update',
   '_KyMd5_end',
   '_KyMd5_free',
   //
   '_KySHA1_alloc',
   '_KySHA1_init',
-  '_KySHA1_start',
+  '_KySHA1_starts',
   '_KySHA1_update',
   '_KySHA1_end',
   '_KySHA1_free',

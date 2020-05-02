@@ -7,14 +7,14 @@ import 'sha1.dart' as ky;
 
 //KySHA1_alloc = Module.cwrap('KySHA1_alloc', 'number', [])
 //KySHA1_init = Module.cwrap('KySHA1_init', '', [])
-//KySHA1_start = Module.cwrap('KySHA1_start', '', ['number'])
+//KySHA1_starts = Module.cwrap('KySHA1_starts', '', ['number'])
 //KySHA1_update = Module.cwrap('KySHA1_update', '', ['number','number','number'])
 //KySHA1_end = Module.cwrap('KySHA1_end', '', ['number','number'])
 //KySHA1_free = Module.cwrap('KySHA1_free', '', ['number','number'])
 class RawSHA1 {
   final js.JsFunction _alloc = js.context['KySHA1_alloc'];
   final js.JsFunction _init = js.context['KySHA1_init'];
-  final js.JsFunction _start = js.context['KySHA1_start'];
+  final js.JsFunction _start = js.context['KySHA1_starts'];
   final js.JsFunction _update = js.context['KySHA1_update'];
   final js.JsFunction _end = js.context['KySHA1_end'];
   final js.JsFunction _free = js.context['KySHA1_free'];

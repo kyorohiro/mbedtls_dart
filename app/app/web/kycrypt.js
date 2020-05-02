@@ -2093,10 +2093,10 @@ var _KyMd5_init = Module["_KyMd5_init"] = function() {
 };
 
 /** @type {function(...*):?} */
-var _KyMd5_start = Module["_KyMd5_start"] = function() {
+var _KyMd5_starts = Module["_KyMd5_starts"] = function() {
   assert(runtimeInitialized, 'you need to wait for the runtime to be ready (e.g. wait for main() to be called)');
   assert(!runtimeExited, 'the runtime was exited (use NO_EXIT_RUNTIME to keep it alive after main() exits)');
-  return Module["asm"]["KyMd5_start"].apply(null, arguments)
+  return Module["asm"]["KyMd5_starts"].apply(null, arguments)
 };
 
 /** @type {function(...*):?} */
@@ -2135,10 +2135,10 @@ var _KySHA1_init = Module["_KySHA1_init"] = function() {
 };
 
 /** @type {function(...*):?} */
-var _KySHA1_start = Module["_KySHA1_start"] = function() {
+var _KySHA1_starts = Module["_KySHA1_starts"] = function() {
   assert(runtimeInitialized, 'you need to wait for the runtime to be ready (e.g. wait for main() to be called)');
   assert(!runtimeExited, 'the runtime was exited (use NO_EXIT_RUNTIME to keep it alive after main() exits)');
-  return Module["asm"]["KySHA1_start"].apply(null, arguments)
+  return Module["asm"]["KySHA1_starts"].apply(null, arguments)
 };
 
 /** @type {function(...*):?} */
@@ -2536,7 +2536,7 @@ KyBuffer_get_buffer = function(index, len) {
 
 KyMd5_alloc = Module.cwrap('KyMd5_alloc', 'number', [])
 KyMd5_init = Module.cwrap('KyMd5_init', '', ['number'])
-KyMd5_start = Module.cwrap('KyMd5_start', '', ['number'])
+KyMd5_starts = Module.cwrap('KyMd5_starts', '', ['number'])
 KyMd5_update = Module.cwrap('KyMd5_update', '', ['number','number','number'])
 KyMd5_end = Module.cwrap('KyMd5_end', '', ['number','number'])
 KyMd5_free = Module.cwrap('KyMd5_free', '', ['number','number'])
@@ -2544,7 +2544,7 @@ KyMd5_free = Module.cwrap('KyMd5_free', '', ['number','number'])
 
 KySHA1_alloc = Module.cwrap('KySHA1_alloc', 'number', [])
 KySHA1_init = Module.cwrap('KySHA1_init', '', ['number'])
-KySHA1_start = Module.cwrap('KySHA1_start', '', ['number'])
+KySHA1_starts = Module.cwrap('KySHA1_starts', '', ['number'])
 KySHA1_update = Module.cwrap('KySHA1_update', '', ['number','number','number'])
 KySHA1_end = Module.cwrap('KySHA1_end', '', ['number','number'])
 KySHA1_free = Module.cwrap('KySHA1_free', '', ['number','number'])

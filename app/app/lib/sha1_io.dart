@@ -15,8 +15,8 @@ typedef KySHA1_free = void Function(ffi.Pointer<ffi.Uint8> context);
 typedef KySHA1_init_func = ffi.Void Function(ffi.Pointer<ffi.Uint8> context);
 typedef KySHA1_init = void Function(ffi.Pointer<ffi.Uint8> context);
 
-typedef KySHA1_start_func = ffi.Void Function(ffi.Pointer<ffi.Uint8> context);
-typedef KySHA1_start = void Function(ffi.Pointer<ffi.Uint8> context);
+typedef KySHA1_starts_func = ffi.Void Function(ffi.Pointer<ffi.Uint8> context);
+typedef KySHA1_starts = void Function(ffi.Pointer<ffi.Uint8> context);
 
 typedef KySHA1_update_func = ffi.Void Function(ffi.Pointer<ffi.Uint8> context, ffi.Pointer<ffi.Uint8> input, ffi.Int32 len);
 typedef KySHA1_update = void Function(ffi.Pointer<ffi.Uint8> context, ffi.Pointer<ffi.Uint8> input, int len);
@@ -43,7 +43,7 @@ class RawSHA1 {
       .lookup<ffi.NativeFunction<KySHA1_init_func>>('KySHA1_init')
       .asFunction();
     _startRawSHA1 = dylib
-      .lookup<ffi.NativeFunction<KySHA1_free_func>>('KySHA1_start')
+      .lookup<ffi.NativeFunction<KySHA1_free_func>>('KySHA1_starts')
       .asFunction();
     _updateRawSHA1 = dylib
       .lookup<ffi.NativeFunction<KySHA1_update_func>>('KySHA1_update')
