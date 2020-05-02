@@ -18,7 +18,7 @@ void KySHA512_starts(KySHA512 *context) {
 void KySHA512_update(KySHA512 *context, const unsigned char *input, size_t ilen) {
     mbedtls_sha1_update((mbedtls_sha512_context*)context, input, ilen);
 }
-void KySHA512_end(KySHA512 *context, unsigned char output[20]){
+void KySHA512_end(KySHA512 *context, unsigned char output[64]){
     mbedtls_sha1_finish((mbedtls_sha512_context*)context, output);
 }
 void KySHA512_free(KySHA512 *context) {
