@@ -15,7 +15,7 @@ cp kycrypt.wasm ../web/kycrypt.wasm
 
 
 var files= [
-  'buffer.c', 'md5.c', 'sha1.c'
+  'src/buffer.c', 'src/md5.c', 'src/sha1.c'
 ];
 
 var funcs = [
@@ -38,23 +38,23 @@ var funcs = [
 ];
 
 void rm_obj(){
-   io.Process.runSync('rm', ['*.o']);
-   io.Process.runSync('rm', ['*.wasm']);
-   io.Process.runSync('rm', ['kycrypt.js']);
+   io.Process.runSync('rm', ['build/*.o']);
+   io.Process.runSync('rm', ['build/*.wasm']);
+   io.Process.runSync('rm', ['build/kycrypt.js']);
 }
 
 void gcc_obj(String filename){
   var args = [
-     '-I/works/mbedtls-2.16.5/include/', '-I.',
+     '-I/works/mbedtls-2.16.5/include/', '-I.src',
      '-c', filename,
-     '-o', filename.replaceAll('.c', '.o')
+     '-o', filename.replaceAll('.c', '.o').replaceAll("src", "build")
   ];
    io.Process.runSync('emcc', args);
 }
 
 void link_obj(List<String> files) {
 
-  var objs =  files.map((v)=> v.replaceAll('.c', '.o'));
+  var objs =  files.map((v)=> v.replaceAll('.c', '.o').replaceAll("src", "build"));
   var exps = funcs.map((v){
     return "'"+v+"'";
   }).join(",");
@@ -62,7 +62,7 @@ void link_obj(List<String> files) {
 
   var  args = [
     '-shared', 
-    '-o','kycrypt.js', 
+    '-o','./build/kycrypt.js', 
     '-l','mbedcrypto',
     '-L','/works/mbedtls-2.16.5/library', 
     '-s',"EXTRA_EXPORTED_RUNTIME_METHODS=['cwrap']",
@@ -77,8 +77,8 @@ void link_obj(List<String> files) {
 }
 
 void copy_package(){
-   var input = io.File("./kycrypt_buffer.js");
-   var output = io.File("kycrypt.js");
+   var input = io.File("./src/kycrypt_buffer.js");
+   var output = io.File("./build/kycrypt.js");
    print("^^^^D1");
    output.writeAsStringSync("\n",mode: io.FileMode.append);
    print("^^^^D2");
@@ -86,8 +86,9 @@ void copy_package(){
    print("^^^^D3");
    output.writeAsStringSync("\n",mode: io.FileMode.append);
    print("^^^^D4");
-   io.Process.runSync('cp', ['kycrypt.js','../web/kycrypt.js']);
-   io.Process.runSync('cp', ['kycrypt.wasm ','../web/kycrypt.wasm']);
+   
+   io.Process.runSync('cp', ['./build/kycrypt.js','../web/kycrypt.js']);
+   io.Process.runSync('cp', ['./build/kycrypt.wasm ','../web/kycrypt.wasm']);
 }
 void main() {
 

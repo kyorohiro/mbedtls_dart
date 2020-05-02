@@ -2,3 +2,6 @@
 *.o
 *.wasm
 !kycrypty_util.js
+build/*
+!build/README.md
+!build/READMEmd

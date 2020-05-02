@@ -12,7 +12,7 @@ gcc -shared -o libkycrypt.so sha1.o md5.o buffer.o /usr/local/lib/libmbedcrypto.
  */
 
 var files= [
-  'buffer.c', 'md5.c', 'sha1.c'
+  'src/buffer.c', 'src/md5.c', 'src/sha1.c'
 ];
 
 void rm_obj(){
@@ -21,17 +21,17 @@ void rm_obj(){
 
 void gcc_obj(String filename){
   var args = [
-     '-Wall', '-Werror', '-fpic', '-I.',
+     '-Wall', '-Werror', '-fpic', '-I./src',
      '-c', filename,
-    '-o', filename.replaceAll('.c', '.o')
+    '-o', filename.replaceAll('.c', '.o').replaceAll("src", "build")
   ];
    io.Process.runSync('gcc', args);
 }
 
 void link_obj(List<String> files) {
-  var objs = files.map((v)=> v.replaceAll('.c', '.o'));
-  var  args = [];
-  args.addAll(['-shared', '-o', 'libkycrypt.so']);
+  var objs = files.map((v)=> v.replaceAll('.c', '.o').replaceAll("src", "build"));
+  var  args = <String>[];
+  args.addAll(['-shared', '-o', 'build/libkycrypt.so']);
   args.addAll(objs); 
   args.addAll(['/usr/local/lib/libmbedcrypto.a']);
   var r = io.Process.runSync('gcc', args);
