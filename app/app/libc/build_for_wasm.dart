@@ -92,7 +92,7 @@ void link_obj(List<String> files) {
 }
 
 void copy_package(){
-   var input = io.File("./src/kycrypt_buffer.js");
+   var input = io.File("./src/kycrypty_util.js");
    var output = io.File("./build/kycrypt.js");
    print("^^^^D1");
    output.writeAsStringSync("\n",mode: io.FileMode.append);
