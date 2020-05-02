@@ -15,7 +15,7 @@ cp kycrypt.wasm ../web/kycrypt.wasm
 
 
 var files= [
-  'src/buffer.c', 'src/md5.c', 'src/sha1.c'
+  'src/buffer.c', 'src/md5.c', 'src/sha1.c', 'src/sha256.c', 'src/sha512.c'
 ];
 
 var funcs = [
@@ -35,6 +35,20 @@ var funcs = [
   '_KySHA1_update',
   '_KySHA1_end',
   '_KySHA1_free',
+  //
+  '_KySHA256_alloc',
+  '_KySHA256_init',
+  '_KySHA256_starts',
+  '_KySHA256_update',
+  '_KySHA256_end',
+  '_KySHA256_free',
+  //
+  '_KySHA512_alloc',
+  '_KySHA512_init',
+  '_KySHA512_starts',
+  '_KySHA512_update',
+  '_KySHA512_end',
+  '_KySHA512_free',
 ];
 
 void rm_obj(){

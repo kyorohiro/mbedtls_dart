@@ -2549,4 +2549,17 @@ KySHA1_update = Module.cwrap('KySHA1_update', '', ['number','number','number'])
 KySHA1_end = Module.cwrap('KySHA1_end', '', ['number','number'])
 KySHA1_free = Module.cwrap('KySHA1_free', '', ['number','number'])
 
+KySHA256_alloc = Module.cwrap('KySHA256_alloc', 'number', [])
+KySHA256_init = Module.cwrap('KySHA256_init', '', ['number'])
+KySHA256_starts = Module.cwrap('KySHA256_starts', '', ['number'])
+KySHA256_update = Module.cwrap('KySHA256_update', '', ['number','number','number'])
+KySHA256_end = Module.cwrap('KySHA256_end', '', ['number','number'])
+KySHA256_free = Module.cwrap('KySHA256_free', '', ['number','number'])
+
+KySHA512_alloc = Module.cwrap('KySHA512_alloc', 'number', [])
+KySHA512_init = Module.cwrap('KySHA512_init', '', ['number'])
+KySHA512_starts = Module.cwrap('KySHA512_starts', '', ['number'])
+KySHA512_update = Module.cwrap('KySHA512_update', '', ['number','number','number'])
+KySHA512_end = Module.cwrap('KySHA512_end', '', ['number','number'])
+KySHA512_free = Module.cwrap('KySHA512_free', '', ['number','number'])
 
