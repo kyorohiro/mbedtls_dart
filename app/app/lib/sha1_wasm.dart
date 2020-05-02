@@ -20,9 +20,6 @@ class RawSHA1 {
   final js.JsFunction _free = js.context['KySHA1_free'];
 
   int alloc() {
-    print("----B2a");
-    print(_alloc);
-     print("----B2b");
     return _alloc.apply([]);
   }
   void  init(int pointer) {
