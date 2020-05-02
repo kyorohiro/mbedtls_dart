@@ -8,11 +8,12 @@ import 'package:info.kyorohiro.mbedtls/md5_io.dart' as ky;
 import 'package:info.kyorohiro.mbedtls/sha1.dart' as ky;
 import 'package:info.kyorohiro.mbedtls/sha1_io.dart' as ky;
 import 'package:test/test.dart';
+
 //import 'dart:ffi' as ffi show DynamicLibrary;
 import 'dart:ffi' as ffi;
 import 'dart:convert' as conv show utf8;
 void main() {
-  final ffi.DynamicLibrary dylib = ffi.DynamicLibrary.open('/app/libc/libkycrypt.so');
+  final ffi.DynamicLibrary dylib = ffi.DynamicLibrary.open('/app/libc/build/libkycrypt.so');
   
   group('XXX', () {
    
