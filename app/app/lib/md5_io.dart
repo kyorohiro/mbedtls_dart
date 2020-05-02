@@ -99,18 +99,22 @@ class Md5Io extends ky.Md5{
     starts();
   }
 
+  @override
   void starts(){
     _raw.start(_context);
   }
 
+  @override
   void update(ky.Buffer buffer,int len){
     _raw.update(_context, buffer, len);
   }
 
+  @override
   void end(ky.Buffer buffer){
     _raw.end(_context, buffer);
   }
 
+  @override
   void despose(){
     _raw.free(_context);
   }
