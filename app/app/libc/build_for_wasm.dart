@@ -16,7 +16,7 @@ cp kycrypt.wasm ../web/kycrypt.wasm
 
 
 var files= [
-  'src/buffer.c', 'src/md5.c', 'src/sha1.c', 'src/sha256.c', 'src/sha512.c'
+  'src/buffer.c', 'src/md5.c', 'src/sha1.c', 'src/sha256.c', 'src/sha512.c', 'src/aes.c'
 ];
 
 var funcs = [
@@ -50,6 +50,15 @@ var funcs = [
   '_KySHA512_update',
   '_KySHA512_end',
   '_KySHA512_free',
+  //
+  '_KyAES_alloc',
+  '_KyAES_init',
+  '_KyAES_setKeyForEncode',
+  '_KyAES_setKeyForDecode',
+  '_KyAES_encryptAtCBC',
+  '_KyAES_decryptAtCBC',
+  '_KyAES_free'
+
 ];
 
 void rm_obj(){
@@ -59,12 +68,16 @@ void rm_obj(){
 }
 
 void gcc_obj(String filename){
+  print("gcc obj :　${filename}\n");
   var args = [
      '-I/works/mbedtls-2.16.5/include/', '-I.src',
      '-c', filename,
      '-o', filename.replaceAll('.c', '.o').replaceAll("src", "build")
   ];
-   io.Process.runSync('emcc', args);
+  var result = io.Process.runSync('emcc', args);
+  print(">>> ${result.stderr}");
+  print(">>> ${result.stdout}");
+  print(">>> ${result.exitCode}");
 }
 
 void link_obj(List<String> files) {

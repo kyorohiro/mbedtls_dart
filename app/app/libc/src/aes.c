@@ -2,7 +2,7 @@
 #include <stddef.h>
 #include <stdlib.h>
 #include <mbedtls/aes.h>
-#include <aes.h>
+#include "aes.h"
 
 KyAES* KyAES_alloc() {
     return malloc(sizeof(KyAES));

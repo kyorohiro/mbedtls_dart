@@ -33,3 +33,12 @@ KySHA512_starts = Module.cwrap('KySHA512_starts', '', ['number'])
 KySHA512_update = Module.cwrap('KySHA512_update', '', ['number','number','number'])
 KySHA512_end = Module.cwrap('KySHA512_end', '', ['number','number'])
 KySHA512_free = Module.cwrap('KySHA512_free', '', ['number','number'])
+//
+KyAES_alloc = Module.cwrap('KyAES_alloc', 'number', [])
+KyAES_init = Module.cwrap('KyAES_init', '', ['number'])
+KyAES_setKeyForEncode = Module.cwrap('KyAES_setKeyForEncode', '', ['number','number','number'])
+KyAES_setKeyForDecode = Module.cwrap('KyAES_setKeyForDecode', '', ['number','number','number'])
+KyAES_encryptAtCBC = Module.cwrap('KyAES_encryptAtCBC', '', ['number','number','number','number','number'])
+KyAES_decryptAtCBC = Module.cwrap('KyAES_decryptAtCBC', '', ['number','number','number','number','number'])
+KyAES_free = Module.cwrap('KyAES_free', '', ['number','number'])
+

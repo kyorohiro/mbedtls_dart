@@ -662,8 +662,8 @@ var wasmMemory;
 // In the wasm backend, we polyfill the WebAssembly object,
 // so this creates a (non-native-wasm) table for us.
 var wasmTable = new WebAssembly.Table({
-  'initial': 4,
-  'maximum': 4 + 0,
+  'initial': 5,
+  'maximum': 5 + 0,
   'element': 'anyfunc'
 });
 
@@ -1271,11 +1271,11 @@ function updateGlobalBufferAndViews(buf) {
 }
 
 var STATIC_BASE = 1024,
-    STACK_BASE = 5246672,
+    STACK_BASE = 5255456,
     STACKTOP = STACK_BASE,
-    STACK_MAX = 3792,
-    DYNAMIC_BASE = 5246672,
-    DYNAMICTOP_PTR = 3632;
+    STACK_MAX = 12576,
+    DYNAMIC_BASE = 5255456,
+    DYNAMICTOP_PTR = 12416;
 
 assert(STACK_BASE % 16 === 0, 'stack must start aligned');
 assert(DYNAMIC_BASE % 16 === 0, 'heap must start aligned');
@@ -1822,7 +1822,7 @@ var ASM_CONSTS = {
 
 
 
-// STATICTOP = STATIC_BASE + 2768;
+// STATICTOP = STATIC_BASE + 11552;
 /* global initializers */  __ATINIT__.push({ func: function() { ___wasm_call_ctors() } });
 
 
@@ -1875,7 +1875,7 @@ var ASM_CONSTS = {
     }
 
   function _emscripten_get_sbrk_ptr() {
-      return 3632;
+      return 12416;
     }
 
   function _emscripten_memcpy_big(dest, src, num) {
@@ -2247,6 +2247,55 @@ var _KySHA512_free = Module["_KySHA512_free"] = function() {
 };
 
 /** @type {function(...*):?} */
+var _KyAES_alloc = Module["_KyAES_alloc"] = function() {
+  assert(runtimeInitialized, 'you need to wait for the runtime to be ready (e.g. wait for main() to be called)');
+  assert(!runtimeExited, 'the runtime was exited (use NO_EXIT_RUNTIME to keep it alive after main() exits)');
+  return Module["asm"]["KyAES_alloc"].apply(null, arguments)
+};
+
+/** @type {function(...*):?} */
+var _KyAES_init = Module["_KyAES_init"] = function() {
+  assert(runtimeInitialized, 'you need to wait for the runtime to be ready (e.g. wait for main() to be called)');
+  assert(!runtimeExited, 'the runtime was exited (use NO_EXIT_RUNTIME to keep it alive after main() exits)');
+  return Module["asm"]["KyAES_init"].apply(null, arguments)
+};
+
+/** @type {function(...*):?} */
+var _KyAES_setKeyForEncode = Module["_KyAES_setKeyForEncode"] = function() {
+  assert(runtimeInitialized, 'you need to wait for the runtime to be ready (e.g. wait for main() to be called)');
+  assert(!runtimeExited, 'the runtime was exited (use NO_EXIT_RUNTIME to keep it alive after main() exits)');
+  return Module["asm"]["KyAES_setKeyForEncode"].apply(null, arguments)
+};
+
+/** @type {function(...*):?} */
+var _KyAES_setKeyForDecode = Module["_KyAES_setKeyForDecode"] = function() {
+  assert(runtimeInitialized, 'you need to wait for the runtime to be ready (e.g. wait for main() to be called)');
+  assert(!runtimeExited, 'the runtime was exited (use NO_EXIT_RUNTIME to keep it alive after main() exits)');
+  return Module["asm"]["KyAES_setKeyForDecode"].apply(null, arguments)
+};
+
+/** @type {function(...*):?} */
+var _KyAES_encryptAtCBC = Module["_KyAES_encryptAtCBC"] = function() {
+  assert(runtimeInitialized, 'you need to wait for the runtime to be ready (e.g. wait for main() to be called)');
+  assert(!runtimeExited, 'the runtime was exited (use NO_EXIT_RUNTIME to keep it alive after main() exits)');
+  return Module["asm"]["KyAES_encryptAtCBC"].apply(null, arguments)
+};
+
+/** @type {function(...*):?} */
+var _KyAES_decryptAtCBC = Module["_KyAES_decryptAtCBC"] = function() {
+  assert(runtimeInitialized, 'you need to wait for the runtime to be ready (e.g. wait for main() to be called)');
+  assert(!runtimeExited, 'the runtime was exited (use NO_EXIT_RUNTIME to keep it alive after main() exits)');
+  return Module["asm"]["KyAES_decryptAtCBC"].apply(null, arguments)
+};
+
+/** @type {function(...*):?} */
+var _KyAES_free = Module["_KyAES_free"] = function() {
+  assert(runtimeInitialized, 'you need to wait for the runtime to be ready (e.g. wait for main() to be called)');
+  assert(!runtimeExited, 'the runtime was exited (use NO_EXIT_RUNTIME to keep it alive after main() exits)');
+  return Module["asm"]["KyAES_free"].apply(null, arguments)
+};
+
+/** @type {function(...*):?} */
 var ___errno_location = Module["___errno_location"] = function() {
   assert(runtimeInitialized, 'you need to wait for the runtime to be ready (e.g. wait for main() to be called)');
   assert(!runtimeExited, 'the runtime was exited (use NO_EXIT_RUNTIME to keep it alive after main() exits)');
@@ -2296,17 +2345,17 @@ var __growWasmMemory = Module["__growWasmMemory"] = function() {
 };
 
 /** @type {function(...*):?} */
-var dynCall_ii = Module["dynCall_ii"] = function() {
-  assert(runtimeInitialized, 'you need to wait for the runtime to be ready (e.g. wait for main() to be called)');
-  assert(!runtimeExited, 'the runtime was exited (use NO_EXIT_RUNTIME to keep it alive after main() exits)');
-  return Module["asm"]["dynCall_ii"].apply(null, arguments)
-};
-
-/** @type {function(...*):?} */
 var dynCall_iiii = Module["dynCall_iiii"] = function() {
   assert(runtimeInitialized, 'you need to wait for the runtime to be ready (e.g. wait for main() to be called)');
   assert(!runtimeExited, 'the runtime was exited (use NO_EXIT_RUNTIME to keep it alive after main() exits)');
   return Module["asm"]["dynCall_iiii"].apply(null, arguments)
+};
+
+/** @type {function(...*):?} */
+var dynCall_ii = Module["dynCall_ii"] = function() {
+  assert(runtimeInitialized, 'you need to wait for the runtime to be ready (e.g. wait for main() to be called)');
+  assert(!runtimeExited, 'the runtime was exited (use NO_EXIT_RUNTIME to keep it alive after main() exits)');
+  return Module["asm"]["dynCall_ii"].apply(null, arguments)
 };
 
 /** @type {function(...*):?} */
@@ -2646,4 +2695,13 @@ KySHA512_starts = Module.cwrap('KySHA512_starts', '', ['number'])
 KySHA512_update = Module.cwrap('KySHA512_update', '', ['number','number','number'])
 KySHA512_end = Module.cwrap('KySHA512_end', '', ['number','number'])
 KySHA512_free = Module.cwrap('KySHA512_free', '', ['number','number'])
+//
+KyAES_alloc = Module.cwrap('KyAES_alloc', 'number', [])
+KyAES_init = Module.cwrap('KyAES_init', '', ['number'])
+KyAES_setKeyForEncode = Module.cwrap('KyAES_setKeyForEncode', '', ['number','number','number'])
+KyAES_setKeyForDecode = Module.cwrap('KyAES_setKeyForDecode', '', ['number','number','number'])
+KyAES_encryptAtCBC = Module.cwrap('KyAES_encryptAtCBC', '', ['number','number','number','number','number'])
+KyAES_decryptAtCBC = Module.cwrap('KyAES_decryptAtCBC', '', ['number','number','number','number','number'])
+KyAES_free = Module.cwrap('KyAES_free', '', ['number','number'])
+
 
