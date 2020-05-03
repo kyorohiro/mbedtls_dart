@@ -19,7 +19,7 @@ void main() {
     setUp(() {
     });
 
-    test('Buffer Test', () {
+    test('Buffer Create', () {
       
       var builder = ky.BufferBuilderIo(dylib);
       var b = builder.create(10);
@@ -33,6 +33,12 @@ void main() {
         expect(i, (buffer as ky.BufferIo).rawBuffer.elementAt(i).value);      
       }
       buffer.dispose();
+    });
+    test('Buffer HEX', () {
+      var builder = ky.BufferBuilderIo(dylib);
+      var b = builder.createFromHex('ABCDEF0123456789');
+      expect(b.toHex(), 'abcdef0123456789');
+      b.dispose();
     });
   });
 }
