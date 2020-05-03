@@ -67,6 +67,9 @@ class RawAES {
      _encryptAtCBC = dylib
       .lookup<ffi.NativeFunction<KyAES_encryptAtCBC_func>>('KyAES_encryptAtCBC')
       .asFunction();
+     _decryptAtCBC = dylib
+      .lookup<ffi.NativeFunction<KyAES_encryptAtCBC_func>>('KyAES_decryptAtCBC')
+      .asFunction();
 
   }
 

@@ -17,21 +17,33 @@ import 'dart:convert' as conv show utf8;
 void main() {
   final ffi.DynamicLibrary dylib = ffi.DynamicLibrary.open('/app/libc/build/libkycrypt.so');
   
-  test('AES CBsC Test', () {
+  test('AES CBC Test Encode', () {
     var bufferBuilder = ky.BufferBuilderIo(dylib);
-    var builder = ky.AESBuilderIO(dylib);
+    var aesBuilder = ky.AESBuilderIO(dylib);
     //
-    var buffer = bufferBuilder.create(100);
-    buffer.buffer.setAll(0, conv.utf8.encode('hello'));
-    //
-    var key = bufferBuilder.create(1);
-    buffer.buffer.setAll(0, conv.utf8.encode('hello'));
+    var buffer = bufferBuilder.createFromString('helloworld012345');
+    var key = bufferBuilder.createFromHex('2b7e151628aed2a6abf7158809cf4f3c2b7e151628aed2a6abf7158809cf4f3c');
+    var iv =  bufferBuilder.createFromHex('000102030405060708090a0b0c0d0e0f');
+    var output = bufferBuilder.create(16);
+    var aes = aesBuilder.create();
+    aes.setKeyForEncode(key, 256);
+    aes.encryptAtCBC(iv, buffer, buffer.len, output);
+    aes.despose();
+    expect(output.toHex(), 'bbcebf78673fccf2dfce4e4c6034517e');
+  });
 
-    var outputBuffer = bufferBuilder.create(16);
-    var aes = builder.create();
-    //aes.setKeyForEncode(key, keybits)
-    
-    //expect(outputBuffer.toHex(), '5d41402abc4b2a76b9719d911017c592');
-    
+  test('AES CBC Test Decode', () {
+    var bufferBuilder = ky.BufferBuilderIo(dylib);
+    var aesBuilder = ky.AESBuilderIO(dylib);
+    //
+    var buffer = bufferBuilder.createFromHex('bbcebf78673fccf2dfce4e4c6034517e');
+    var key = bufferBuilder.createFromHex('2b7e151628aed2a6abf7158809cf4f3c2b7e151628aed2a6abf7158809cf4f3c');
+    var iv =  bufferBuilder.createFromHex('000102030405060708090a0b0c0d0e0f');
+    var output = bufferBuilder.create(16);
+    var aes = aesBuilder.create();
+    aes.setKeyForDecode(key, 256);
+    aes.decryptAtCBC(iv, buffer, buffer.len, output);
+    aes.despose();
+    expect(output.toString(), 'helloworld012345');
   });
 }

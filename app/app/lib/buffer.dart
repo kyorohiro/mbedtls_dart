@@ -5,6 +5,13 @@ import 'dart:convert' as conv show utf8;
 
 abstract class BufferBuilder {
   Buffer create(int len);
+
+  Buffer createFromString(String text) {
+    var codes = conv.utf8.encode(text);
+    var buffer = create(codes.length);
+    buffer.buffer.setRange(0, codes.length, codes);
+    return buffer;
+  }
   Buffer createFromHex(String hexString) {
     var buffer = create(hexString.length~/2);
     var codes = conv.utf8.encode(hexString);
@@ -46,5 +53,10 @@ abstract class Buffer {
       ret.write((c & 0x0F).toRadixString(16));
     }
     return ret.toString();
+  }
+
+  @override
+  String toString(){
+    return conv.utf8.decode(buffer.buffer.asUint8List());
   }
 }
