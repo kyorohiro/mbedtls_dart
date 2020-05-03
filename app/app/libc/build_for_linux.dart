@@ -12,7 +12,7 @@ gcc -shared -o libkycrypt.so sha1.o md5.o buffer.o /usr/local/lib/libmbedcrypto.
  */
 
 var files= [
-  'src/buffer.c', 'src/md5.c', 'src/sha1.c', 'src/sha256.c', 'src/sha512.c'
+  'src/buffer.c', 'src/md5.c', 'src/sha1.c', 'src/sha256.c', 'src/sha512.c', 'src/aes.c'
 ];
 
 void rm_obj(){
