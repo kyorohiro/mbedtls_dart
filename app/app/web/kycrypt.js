@@ -2717,5 +2717,6 @@ KyAES_setKeyForDecode = Module.cwrap('KyAES_setKeyForDecode', '', ['number','num
 KyAES_encryptAtCBC = Module.cwrap('KyAES_encryptAtCBC', '', ['number','number','number','number','number'])
 KyAES_decryptAtCBC = Module.cwrap('KyAES_decryptAtCBC', '', ['number','number','number','number','number'])
 KyAES_free = Module.cwrap('KyAES_free', '', ['number','number'])
-
+KyAES_encryptAtECB = Module.cwrap('KyAES_encryptAtECB', '', ['number','number','number'])
+KyAES_decryptAtECB = Module.cwrap('KyAES_decryptAtECB', '', ['number','number','number'])
 

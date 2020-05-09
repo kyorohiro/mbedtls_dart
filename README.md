@@ -10,6 +10,8 @@ for wasm and io
 - sha256
 - sha512
 - aes cbc
+- aes ecb
+
 
 
 # preperation
