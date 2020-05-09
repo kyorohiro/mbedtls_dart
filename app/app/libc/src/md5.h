@@ -5,7 +5,7 @@ typedef struct {
     mbedtls_md5_context base;
 } KyMD5;
 
-KyMD5* Md5_alloc();
+KyMD5* KyMd5_alloc();
 void KyMd5_init(KyMD5 *context);
 void KyMd5_starts(KyMD5 *context);
 void KyMD5_update(KyMD5 *context, const unsigned char *input, size_t ilen);

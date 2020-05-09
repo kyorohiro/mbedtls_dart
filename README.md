@@ -2,11 +2,14 @@ Coder Server 's develop environment  for mbed TLS
 
 # support now
 
+for wasm and io
+
 - allocate buffer
 - md5
 - sha1
 - sha256
 - sha512
+- aes cbc
 
 
 # preperation

@@ -7,3 +7,4 @@ a.out
 *.out
 *.exe
 .DS_Store
+.private
