@@ -48,7 +48,7 @@ void main() {
     expect(output.toString(), 'helloworld012345');
   });
 
-  test('AES CBC Test Encode', () {
+  test('AES ECB Test Encode', () {
     var bufferBuilder = ky.BufferBuilderIo(dylib);
     var aesBuilder = ky.AESBuilderIO(dylib);
     //
@@ -60,7 +60,22 @@ void main() {
     aes.setKeyForEncode(key, 256);
     aes.encryptAtECB(buffer, output);
     aes.despose();
-    expect(output.toHex(), 'b62417084796ea0724fe26931803e9d2');
+    expect(output.toHex(), 'dd908ded44d50472b656183c1b37183d');
   });
+
+  test('AES ECB Test Decode', () {
+    var bufferBuilder = ky.BufferBuilderIo(dylib);
+    var aesBuilder = ky.AESBuilderIO(dylib);
+    //
+    var buffer = bufferBuilder.createFromHex('dd908ded44d50472b656183c1b37183d');
+    var key = bufferBuilder.createFromHex('2b7e151628aed2a6abf7158809cf4f3c2b7e151628aed2a6abf7158809cf4f3c');
+    var output = bufferBuilder.create(16);
+    var aes = aesBuilder.create();
+    aes.setKeyForDecode(key, 256);
+    aes.decryptAtECB(buffer, output);
+    aes.despose();
+    expect(output.toString(), 'helloworld012345');
+  });
+
 
 }
