@@ -35,7 +35,7 @@ class RawAES {
   }
 
   int setKeyForDecode(int pointer, int bufferPointer, int len) {
-    return _setKeyForEncode.apply([pointer, bufferPointer, len]);
+    return _setKeyForDecode.apply([pointer, bufferPointer, len]);
   }
 
   int encryptAtCBC(int pointer, int ivPointer, int inputPointer, int ilen, 

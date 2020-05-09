@@ -57,6 +57,7 @@ abstract class Buffer {
 
   @override
   String toString(){
-    return conv.utf8.decode(buffer.buffer.asUint8List());
+    //print("length=${buffer.length}");
+    return conv.utf8.decode(buffer,allowMalformed:true);
   }
 }
