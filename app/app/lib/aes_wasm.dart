@@ -12,6 +12,8 @@ class RawAES {
   final js.JsFunction _setKeyForDecode= js.context['KyAES_setKeyForDecode'];
   final js.JsFunction _encryptAtCBC = js.context['KyAES_encryptAtCBC'];
   final js.JsFunction _decryptAtCBC = js.context['KyAES_decryptAtCBC'];
+  final js.JsFunction _encryptAtECB = js.context['KyAES_encryptAtECB'];
+  final js.JsFunction _decryptAtECB = js.context['KyAES_decryptAtECB'];
   final js.JsFunction _free = js.context['KyAES_free'];
 
 //KyAES_alloc = Module.cwrap('KyAES_alloc', 'number', [])
@@ -46,6 +48,14 @@ class RawAES {
   int decryptAtCBC(int pointer, int ivPointer, int inputPointer, int ilen, 
               int outputPointer) {
       return _decryptAtCBC.apply([pointer, ivPointer, inputPointer, ilen, outputPointer]);
+  }
+
+  int encryptAtECB(int pointer, int inputPointer, int outputPointer) {
+      return _encryptAtECB.apply([pointer, inputPointer, outputPointer]);
+  }
+
+  int decryptAtECB(int pointer, int inputPointer, int outputPointer) {
+      return _decryptAtECB.apply([pointer, inputPointer, outputPointer]);
   }
 
   void free(int pointer){
@@ -101,6 +111,18 @@ class AESWasm extends ky.AES {
   @override
   int setKeyForEncode(ky.Buffer key, int keybits) {
     return raw.setKeyForEncode(_pointer, (key as ky.BufferWasm).pointer, keybits);
+  }
+
+  @override
+  int decryptAtECB(ky.Buffer input, ky.Buffer output) {
+    return raw.decryptAtECB(_pointer,
+     (input as ky.BufferWasm).pointer, (output as ky.BufferWasm).pointer);
+  }
+
+  @override
+  int encryptAtECB(ky.Buffer input, ky.Buffer output) {
+    return raw.encryptAtECB(_pointer,
+     (input as ky.BufferWasm).pointer, (output as ky.BufferWasm).pointer);
   }
 
 }

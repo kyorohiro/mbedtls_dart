@@ -2289,6 +2289,20 @@ var _KyAES_decryptAtCBC = Module["_KyAES_decryptAtCBC"] = function() {
 };
 
 /** @type {function(...*):?} */
+var _KyAES_encryptAtECB = Module["_KyAES_encryptAtECB"] = function() {
+  assert(runtimeInitialized, 'you need to wait for the runtime to be ready (e.g. wait for main() to be called)');
+  assert(!runtimeExited, 'the runtime was exited (use NO_EXIT_RUNTIME to keep it alive after main() exits)');
+  return Module["asm"]["KyAES_encryptAtECB"].apply(null, arguments)
+};
+
+/** @type {function(...*):?} */
+var _KyAES_decryptAtECB = Module["_KyAES_decryptAtECB"] = function() {
+  assert(runtimeInitialized, 'you need to wait for the runtime to be ready (e.g. wait for main() to be called)');
+  assert(!runtimeExited, 'the runtime was exited (use NO_EXIT_RUNTIME to keep it alive after main() exits)');
+  return Module["asm"]["KyAES_decryptAtECB"].apply(null, arguments)
+};
+
+/** @type {function(...*):?} */
 var _KyAES_free = Module["_KyAES_free"] = function() {
   assert(runtimeInitialized, 'you need to wait for the runtime to be ready (e.g. wait for main() to be called)');
   assert(!runtimeExited, 'the runtime was exited (use NO_EXIT_RUNTIME to keep it alive after main() exits)');
@@ -2703,5 +2717,6 @@ KyAES_setKeyForDecode = Module.cwrap('KyAES_setKeyForDecode', '', ['number','num
 KyAES_encryptAtCBC = Module.cwrap('KyAES_encryptAtCBC', '', ['number','number','number','number','number'])
 KyAES_decryptAtCBC = Module.cwrap('KyAES_decryptAtCBC', '', ['number','number','number','number','number'])
 KyAES_free = Module.cwrap('KyAES_free', '', ['number','number'])
-
+KyAES_encryptAtECB = Module.cwrap('KyAES_encryptAtECB', '', ['number','number','number'])
+KyAES_decryptAtECB = Module.cwrap('KyAES_decryptAtECB', '', ['number','number','number'])
 

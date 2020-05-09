@@ -13,4 +13,7 @@ int KyAES_encryptAtCBC(KyAES *context, unsigned char iv[16],
     const unsigned char *input, size_t ilen, unsigned char *output);
 int KyAES_decryptAtCBC(KyAES *context, unsigned char iv[16], 
     const unsigned char *input, size_t ilen, unsigned char *output);
+int KyAES_encryptAtECB(KyAES *context, const unsigned char input[16], unsigned char output[16]);
+int KyAES_decryptAtECB(KyAES *context, const unsigned char input[16], unsigned char output[16]);
+
 void KyAES_free(KyAES *context);

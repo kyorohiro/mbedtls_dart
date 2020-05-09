@@ -30,6 +30,14 @@ int KyAES_decryptAtCBC(KyAES *context, unsigned char iv[16],
     return mbedtls_aes_crypt_cbc((mbedtls_aes_context*)context, MBEDTLS_AES_DECRYPT, ilen, iv, input, output);
 }
 
+int KyAES_encryptAtECB(KyAES *context, const unsigned char input[16], unsigned char output[16]){
+    return mbedtls_aes_crypt_ecb((mbedtls_aes_context*)context, MBEDTLS_AES_ENCRYPT, input, output);
+}
+
+int KyAES_decryptAtECB(KyAES *context, const unsigned char input[16], unsigned char output[16]){
+    return mbedtls_aes_crypt_ecb((mbedtls_aes_context*)context, MBEDTLS_AES_DECRYPT, input, output);
+}
+
 void KyAES_free(KyAES *context) {
     mbedtls_aes_free((mbedtls_aes_context*)context);
 }
