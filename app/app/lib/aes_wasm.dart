@@ -103,4 +103,16 @@ class AESWasm extends ky.AES {
     return raw.setKeyForEncode(_pointer, (key as ky.BufferWasm).pointer, keybits);
   }
 
+  @override
+  int decryptAtECB(ky.Buffer iv, ky.Buffer input, ky.Buffer output) {
+    // TODO: implement decryptAtECB
+    return null;
+  }
+
+  @override
+  int encryptAtECB(ky.Buffer iv, ky.Buffer input, ky.Buffer output) {
+    // TODO: implement encryptAtECB
+    return null;
+  }
+
 }

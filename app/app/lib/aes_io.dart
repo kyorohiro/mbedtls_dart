@@ -38,6 +38,14 @@ typedef KyAES_decryptAtCBC = int Function(ffi.Pointer<ffi.Uint8> context,
               ffi.Pointer<ffi.Uint8> iv, ffi.Pointer<ffi.Uint8> input, int ilen, 
               ffi.Pointer<ffi.Uint8> output);
 
+typedef KyAES_decryptAtECB_func = ffi.Int32 Function(ffi.Pointer<ffi.Uint8> context,
+              ffi.Pointer<ffi.Uint8> input, ffi.Pointer<ffi.Uint8> output);
+typedef KyAES_decryptAtECB = int Function(ffi.Pointer<ffi.Uint8> context,
+              ffi.Pointer<ffi.Uint8> input, ffi.Pointer<ffi.Uint8> output);
+typedef KyAES_encryptAtECB_func = ffi.Int32 Function(ffi.Pointer<ffi.Uint8> context,
+              ffi.Pointer<ffi.Uint8> input, ffi.Pointer<ffi.Uint8> output);
+typedef KyAES_encryptAtECB = int Function(ffi.Pointer<ffi.Uint8> context,
+              ffi.Pointer<ffi.Uint8> input, ffi.Pointer<ffi.Uint8> output);
 class RawAES {
 
   KyAES_alloc _allocRawAES;
@@ -46,7 +54,9 @@ class RawAES {
   KyAES_setKeyForEncode _setKeyForEncode;
   KyAES_setKeyForDecode _setKeyForDecode;
   KyAES_decryptAtCBC _decryptAtCBC;
-  KyAES_decryptAtCBC _encryptAtCBC;
+  KyAES_encryptAtCBC _encryptAtCBC;
+  KyAES_decryptAtECB _decryptAtECB;
+  KyAES_encryptAtECB _encryptAtECB;
 
   RawAES(ffi.DynamicLibrary dylib) {
      _allocRawAES = dylib
@@ -70,7 +80,12 @@ class RawAES {
      _decryptAtCBC = dylib
       .lookup<ffi.NativeFunction<KyAES_encryptAtCBC_func>>('KyAES_decryptAtCBC')
       .asFunction();
-
+     _decryptAtECB = dylib
+      .lookup<ffi.NativeFunction<KyAES_encryptAtECB_func>>('KyAES_encryptAtECB')
+      .asFunction();
+     _encryptAtECB = dylib
+      .lookup<ffi.NativeFunction<KyAES_encryptAtECB_func>>('KyAES_decryptAtECB')
+      .asFunction();
   }
 
   ffi.Pointer<ffi.Uint8> alloc() {
@@ -104,7 +119,15 @@ class RawAES {
               ky.Buffer output) {
     return _decryptAtCBC(context, (iv as BufferIo).rawBuffer, (input as BufferIo).rawBuffer,ilen, (output as BufferIo).rawBuffer);
   }
+  int encryptAtECB(ffi.Pointer<ffi.Uint8> context,
+              ky.Buffer input, ky.Buffer output) {
+    return _encryptAtECB(context, (input as BufferIo).rawBuffer, (output as BufferIo).rawBuffer);
+  }
 
+  int decryptAtECB(ffi.Pointer<ffi.Uint8> context,
+              ky.Buffer input, ky.Buffer output) {
+    return _decryptAtECB(context, (input as BufferIo).rawBuffer, (output as BufferIo).rawBuffer);
+  }
 }
 
 //
@@ -154,6 +177,16 @@ class AESIo extends ky.AES{
   @override
   int setKeyForEncode(ky.Buffer key, int keybits) {
     return _raw.setKeyForEncode(_context, key, keybits);
+  }
+
+  @override
+  int decryptAtECB(ky.Buffer iv, ky.Buffer input, ky.Buffer output) {
+    return _raw.decryptAtECB(_context, input, output);
+  }
+
+  @override
+  int encryptAtECB(ky.Buffer iv, ky.Buffer input, ky.Buffer output) {
+    return _raw.encryptAtECB(_context, input, output);
   }
 }
 

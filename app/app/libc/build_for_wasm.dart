@@ -57,8 +57,10 @@ var funcs = [
   '_KyAES_setKeyForDecode',
   '_KyAES_encryptAtCBC',
   '_KyAES_decryptAtCBC',
+  '_KyAES_encryptAtECB',
+  '_KyAES_decryptAtECB',
   '_KyAES_free'
-
+  //
 ];
 
 void rm_obj(){
