@@ -12,8 +12,8 @@ abstract class AES {
   // cbc 256->16byte
   int encryptAtCBC(ky.Buffer iv, ky.Buffer input, int  ilen, ky.Buffer output);
   int decryptAtCBC(ky.Buffer iv, ky.Buffer input, int  ilen, ky.Buffer output);
-  int encryptAtECB(ky.Buffer iv, ky.Buffer input, ky.Buffer output);
-  int decryptAtECB(ky.Buffer iv, ky.Buffer input, ky.Buffer output);
+  int encryptAtECB(ky.Buffer input, ky.Buffer output);
+  int decryptAtECB(ky.Buffer input, ky.Buffer output);
   void despose();
 }
 

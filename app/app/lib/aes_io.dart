@@ -46,6 +46,7 @@ typedef KyAES_encryptAtECB_func = ffi.Int32 Function(ffi.Pointer<ffi.Uint8> cont
               ffi.Pointer<ffi.Uint8> input, ffi.Pointer<ffi.Uint8> output);
 typedef KyAES_encryptAtECB = int Function(ffi.Pointer<ffi.Uint8> context,
               ffi.Pointer<ffi.Uint8> input, ffi.Pointer<ffi.Uint8> output);
+
 class RawAES {
 
   KyAES_alloc _allocRawAES;
@@ -180,12 +181,12 @@ class AESIo extends ky.AES{
   }
 
   @override
-  int decryptAtECB(ky.Buffer iv, ky.Buffer input, ky.Buffer output) {
+  int decryptAtECB(ky.Buffer input, ky.Buffer output) {
     return _raw.decryptAtECB(_context, input, output);
   }
 
   @override
-  int encryptAtECB(ky.Buffer iv, ky.Buffer input, ky.Buffer output) {
+  int encryptAtECB(ky.Buffer input, ky.Buffer output) {
     return _raw.encryptAtECB(_context, input, output);
   }
 }

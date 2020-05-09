@@ -104,13 +104,13 @@ class AESWasm extends ky.AES {
   }
 
   @override
-  int decryptAtECB(ky.Buffer iv, ky.Buffer input, ky.Buffer output) {
+  int decryptAtECB(ky.Buffer input, ky.Buffer output) {
     // TODO: implement decryptAtECB
     return null;
   }
 
   @override
-  int encryptAtECB(ky.Buffer iv, ky.Buffer input, ky.Buffer output) {
+  int encryptAtECB(ky.Buffer input, ky.Buffer output) {
     // TODO: implement encryptAtECB
     return null;
   }
