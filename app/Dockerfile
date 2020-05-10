@@ -21,7 +21,7 @@ RUN ln -s `which python3` /usr/bin/python
 WORKDIR /works/wasm
 RUN apt-get install -y git
 RUN git clone https://github.com/emscripten-core/emsdk.git
-
+ENV DEBIAN_FRONTEND noninteractive
 WORKDIR /works/wasm/emsdk
 RUN ./emsdk install latest
 RUN ./emsdk activate latest
